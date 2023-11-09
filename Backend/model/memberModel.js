@@ -31,7 +31,7 @@ let getAll = async () => {
 let getByID = async (std_id) => {
     const connection = await pool.getConnection();
     try {
-        const query = 'SELECT * FROM `member` where std_id = ?';
+        const query = 'SELECT * FROM `member` WHERE std_id = ?';
         const [rows] = await connection.query(query, [std_id]);
         return rows;
     } catch (err) {
@@ -54,6 +54,19 @@ let add = async (std_id, password, name, tel, curriculum) => {
     }
 }
 
+let updateByID = async (std_id, password, name, tel, curriculum) => {
+    const connection = await pool.getConnection();
+    try {
+        const query = "UPDATE member SET std_id = ?, password = ?, name = ?, tel = ?, curriculum = ? WHERE std_id = ?";
+        const [rows] = await connection.query(query, [std_id, password, name, tel, curriculum, std_id]);
+        return rows;
+    } catch (err) {
+        throw err;
+    } finally {
+        connection.release();
+    }
+}
+
 let deleteByID = async (std_id) => {
     const connection = await pool.getConnection();
     try {
@@ -67,4 +80,4 @@ let deleteByID = async (std_id) => {
     }
 }
 
-export default { getAll, getByID, add, deleteByID };
+export default { getAll, getByID, add, updateByID, deleteByID };

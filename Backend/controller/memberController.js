@@ -12,7 +12,12 @@ let get = async (req, res) => {
 
 let post = async (req, res) => {
     await memberModel.add(req.body.std_id, req.body.password, req.body.name, req.body.tel, req.body.curriculum);
-    return res.status(200);
+    return res.sendStatus(200);
+}
+
+let put = async (req, res) => {
+    await memberModel.updateByID(req.body.std_id, req.body.password, req.body.name, req.body.tel, req.body.curriculum);
+    return res.sendStatus(200);
 }
 
 let del = async (req, res) => {
@@ -25,4 +30,4 @@ let del = async (req, res) => {
     
 }
 
-export default { getAll, get, post, del }
+export default { getAll, get, post, put, del }

@@ -15,6 +15,7 @@ app.get('/', (req, res) => { res.send("SIIT Tabletop Club Backend") })
 
 app.get('/member', memberController.getAll)
 app.get('/member/:id', memberController.get)
+app.put('/member/:id', memberController.put)
 app.post('/member', memberController.post)
 app.delete('/member/:id', memberController.del)
 
