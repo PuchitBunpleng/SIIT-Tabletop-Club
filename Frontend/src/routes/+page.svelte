@@ -1,10 +1,10 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount } from 'svelte'
 	let data;
 	onMount(async () => {
-		data = await fetch('http://localhost:3000/member').then((x) => x.json());
+		data = await fetch('http://localhost:3000/members').then((x) => x.json());
         console.log(data)
-	});
+	})
 </script>
 
 <pre>
