@@ -41,11 +41,11 @@ let getByID = async (std_id) => {
     }
 }
 
-let add = async (std_id, password, name, tel, curriculum) => {
+let add = async (std_id, password, name, tel, curriculum, core) => {
     const connection = await pool.getConnection()
     try {
-        const query = "INSERT INTO member (std_id, password, name, tel, curriculum) VALUES (?, ?, ?, ?, ?)"
-        const [rows] = await connection.query(query, [std_id, password, name, tel, curriculum])
+        const query = "INSERT INTO member (std_id, password, name, tel, curriculum, core) VALUES (?, ?, ?, ?, ?, ?)"
+        const [rows] = await connection.query(query, [std_id, password, name, tel, curriculum, core])
         return rows
     } catch (err) {
         throw err
@@ -54,11 +54,11 @@ let add = async (std_id, password, name, tel, curriculum) => {
     }
 }
 
-let updateByID = async (std_id, password, name, tel, curriculum) => {
+let updateByID = async (std_id, password, name, tel, curriculum, core) => {
     const connection = await pool.getConnection()
     try {
-        const query = "UPDATE member SET std_id = ?, password = ?, name = ?, tel = ?, curriculum = ? WHERE std_id = ?"
-        const [rows] = await connection.query(query, [std_id, password, name, tel, curriculum, std_id])
+        const query = "UPDATE member SET std_id = ?, password = ?, name = ?, tel = ?, curriculum = ?, core = ? WHERE std_id = ?"
+        const [rows] = await connection.query(query, [std_id, password, name, tel, curriculum, core, std_id])
         return rows
     } catch (err) {
         throw err
