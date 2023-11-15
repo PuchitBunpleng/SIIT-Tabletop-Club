@@ -1,8 +1,8 @@
-import memberModel from "../model/memberModel.js"
+import publicModel from "../model/publicModel.js"
 
 let getAll = async (req, res) => {
     try {
-        const result = await memberModel.getAll()
+        const result = await publicModel.getAll()
         return res.status(200).json(result)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -11,7 +11,17 @@ let getAll = async (req, res) => {
 
 let get = async (req, res) => {
     try {
-        const result = await memberModel.getByID(req.params.id)
+        const result = await publicModel.getByID(req.params.id)
+        return res.status(200).json(result)
+    } catch (err) {
+        return res.status(500).json(err.message)
+    }
+     
+}
+
+let getBye = async (req, res) => {
+    try {
+        const result = await publicModel.getByeID(req.params.id)
         return res.status(200).json(result)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -21,26 +31,16 @@ let get = async (req, res) => {
 
 let post = async (req, res) => {
     try {
-        await memberModel.add(req.body.std_id, req.body.password, req.body.name, req.body.tel, req.body.curriculum, req.body.core)
+        await publicModel.add(req.body.pp_person_id, req.body.pp_e_name)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
     }
-}
-
-let put = async (req, res) => {
-    try {
-        await memberModel.updateByID(req.body.std_id, req.body.password, req.body.name, req.body.tel, req.body.curriculum, req.body.core)
-        return res.sendStatus(200)
-    } catch (err) {
-        return res.status(500).json(err.message)
-    }
-    
 }
 
 let del = async (req, res) => {
     try {
-        await memberModel.deleteByID(req.params.id)
+        await publicModel.deleteByID(req.body.pp_person_id, req.body.pp_e_name)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -48,4 +48,4 @@ let del = async (req, res) => {
     
 }
 
-export default { getAll, get, post, put, del }
+export default { getAll, get, getBye, post, del }

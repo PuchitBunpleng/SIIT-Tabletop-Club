@@ -1,8 +1,8 @@
-import memberModel from "../model/memberModel.js"
+import personModel from "../model/personModel.js"
 
 let getAll = async (req, res) => {
     try {
-        const result = await memberModel.getAll()
+        const result = await personModel.getAll()
         return res.status(200).json(result)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -11,7 +11,7 @@ let getAll = async (req, res) => {
 
 let get = async (req, res) => {
     try {
-        const result = await memberModel.getByID(req.params.id)
+        const result = await personModel.getByID(req.params.id)
         return res.status(200).json(result)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -21,7 +21,7 @@ let get = async (req, res) => {
 
 let post = async (req, res) => {
     try {
-        await memberModel.add(req.body.std_id, req.body.password, req.body.name, req.body.tel, req.body.curriculum, req.body.core)
+        await personModel.add(req.body.person_id, req.body.name, req.body.tel, req.body.curriculum)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -30,7 +30,7 @@ let post = async (req, res) => {
 
 let put = async (req, res) => {
     try {
-        await memberModel.updateByID(req.body.std_id, req.body.password, req.body.name, req.body.tel, req.body.curriculum, req.body.core)
+        await personModel.updateByID(req.body.person_id, req.body.name, req.body.tel, req.body.curriculum)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -40,7 +40,7 @@ let put = async (req, res) => {
 
 let del = async (req, res) => {
     try {
-        await memberModel.deleteByID(req.params.id)
+        await personModel.deleteByID(req.params.id)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
