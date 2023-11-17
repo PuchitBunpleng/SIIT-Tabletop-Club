@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="boardgamemember.css">
+  <title>SIIT Tabletop Club</title>
+</head>
+
+<body>
+    <header>
+        <img src="logo.jpg" alt="Logo" id="logo">
+        <div id="header-text">
+            <h1>SIIT Tabletop Club</h1>
+        </div>
+    </header>
+
+    <nav>
+        <a href="homepagemember.html">Home</a>
+        <a href="boardgamemember.html">Board Games</a>
+        <a href="reservationmember.html">Reservation</a>
+        <a href="recordmember.html">Record</a>
+        <a href="landingpage.html">Log Out</a>
+    </nav>
+
+    <div class="content">
+        <p>{Mr.}{Firstname} {Surname}</p>
+        <h1 class="orange-text"><b>________________________</b></h1>
+        <div class="search-bar">
+            <h1 class="search-text">Board Games</h1>
+            <input type="text" id="search-input" placeholder="Search...">
+            <button id="search-button">Search</button>
+        </div>
+
+        <table>
+            <!-- Your SQL data will be dynamically inserted here -->
+            <tr>
+                <th>Board Game</th>
+                <th>Description</th>
+            </tr>
+            <!-- Example row -->
+            <tr>
+                <td>Game 1</td>
+                <td>Description 1</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

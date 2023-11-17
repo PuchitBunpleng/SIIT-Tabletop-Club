@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="recordmember.css">
+  <title>SIIT Tabletop Club</title>
+</head>
+
+<body>
+    <header>
+        <img src="logo.jpg" alt="Logo" id="logo">
+        <div id="header-text">
+            <h1>SIIT Tabletop Club</h1>
+        </div>
+    </header>
+
+    <nav>
+        <a href="homepagemember.html">Home</a>
+        <a href="boardgamemember.html">Board Games</a>
+        <a href="reservationmember.html">Reservation</a>
+        <a href="recordmember.html">Record</a>
+        <a href="landingpage.html">Log Out</a>
+    </nav>
+
+    <div class="content">
+        <p>{Mr.}{Firstname} {Surname}</p>
+        <h1 class="orange-text"><b>________________________</b></h1>
+        <div class="reserve">
+            <h1 class="reserve-text">Record</h1>
+        </div>
+        <table>
+            <!-- Table Header -->
+            <thead>
+                <tr>
+                    <th>Board Game</th>
+                    <th>Date</th>
+                    <th>Winner</th>
+                    <th>Point</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <!-- Table Body -->
+            <tbody id="recordTableBody"> <!-- Add an ID to the tbody -->
+                <!-- Example row -->
+            </tbody>
+        </table>
+        <div class="page-buttons">
+            <button onclick="location.href='recordmemberadd.html'">Add</button>
+        </div>
+    </div>
+
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Function to populate the table with board games from localStorage
+        function populateTable() {
+            let records = JSON.parse(localStorage.getItem('records')) || [];
+
+            // Reference to the table body
+            let tableBody = $('#recordTableBody');
+
+            // Clear existing table rows
+            tableBody.empty();
+
+            // Loop through board games and append rows to the table
+            records.forEach(record => {
+                let newRow = `<tr>
+                    <td>${record.boardGame}</td>
+                            <td>${record.date}</td>
+                            <td>${record.winner}</td>
+                            <td>${record.point}</td>
+                            <td><a href="recordmemberedit.html" class="edit-button">Edit</a></td>
+                            <td><a href="#" class="delete-button" onclick="return confirm('Are you sure you want to delete this playing record?')">Delete</a></td>
+                            </tr>`;
+
+                tableBody.append(newRow);
+            });
+        }
+
+        // Call populateTable function when the document is ready
+        $(document).ready(function () {
+            populateTable();
+
+            // Edit functionality
+            $(document).on('click', '.edit-button', function () {
+                // Code to allow editing of the respective row
+                // You might display input fields in place of text or implement a modal for editing
+            });
+
+            // Delete functionality
+            $(document).on('click', '.delete-button', function () {
+                // Code to delete the respective row
+                $(this).closest('tr').remove(); // Removes the closest row containing the delete button
+                // You might want to include backend calls here to delete from a database
+            });
+        });
+    </script>
+</body>
+
+</html>

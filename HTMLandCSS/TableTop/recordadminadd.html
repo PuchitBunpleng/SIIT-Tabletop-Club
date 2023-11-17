@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="recordadminadd.css">
+  <title>SIIT Tabletop Club</title>
+</head>
+
+<body>
+    <header>
+        <img src="logo.jpg" alt="Logo" id="logo">
+        <div id="header-text">
+            <h1>SIIT Tabletop Club</h1>
+        </div>
+    </header>
+
+    <nav>
+        <a href="homepageadmin.html">Home</a>
+        <a href="boardgameadmin.html">Board Games</a>
+        <a href="reservationadmin.html">Reservation</a>
+        <a href="recordadmin.html">Record</a>
+        <a href="eventmanagement.html">Event Mng.</a>
+        <a href="membermanagement.html">Member Mng.</a>
+        <a href="landingpage.html">Log Out</a>
+    </nav>
+
+    <div class="content">
+        <!-- Your content -->
+        <p>{Mr.}{Firstname} {Surname}</p>
+        <h1 class="orange-text"><b>________________________</b></h1>
+        <h1 class="page-text">Add a record</h1>
+        <div class="page-form">
+            <img src="add.png" alt="Add a Record Image" class="page-image">  
+            <label for="boardgame">Board Game:</label>
+            <input type="text" id="boardgame" name="boardgame" placeholder="Enter board game">
+    
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date">
+    
+            <label for="winner">Winner:</label>
+            <input type="text" id="winner" name="winner" placeholder="Enter winner">
+
+            <label for="point">Point:</label>
+            <input type="number" id="point" name="point" placeholder="Enter points">
+    
+            <div class="page-buttons">
+                <button type="button" onclick="goBack()">Back</button>
+                <button type="button" onclick="addRecord()">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function addRecord() {
+            // Simulated data to be added to the table
+            const boardGame = document.getElementById('boardgame').value;
+            const date = document.getElementById('date').value;
+            const winner = document.getElementById('winner').value;
+            const point = document.getElementById('point').value;
+
+            // Creating an object to represent the new record
+            const newRecord = {
+                id: generateRandomID(),
+                boardGame: boardGame,
+                date: date,
+                winner: winner,
+                point: point
+            };
+
+            // Storing the new record in localStorage
+            let records = JSON.parse(localStorage.getItem('records')) || [];
+            records.push(newRecord);
+            localStorage.setItem('records', JSON.stringify(records));
+
+            // Redirecting back to recordadmin.html
+            window.location.href = 'recordadmin.html';
+
+            // Simulated function to generate a random ID
+            function generateRandomID() {
+                return Math.floor(Math.random() * 1000) + 1;
+            }
+        }
+    </script>
+</body>
+</html>

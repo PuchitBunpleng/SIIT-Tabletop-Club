@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="homepageadminedit.css">
+  <title>SIIT Tabletop Club</title>
+</head>
+
+<body>
+  <header>
+    <img src="logo.jpg" alt="Logo" id="logo">
+    <div id="header-text">
+      <h1>SIIT Tabletop Club</h1>
+    </div>
+  </header>
+
+  <nav>
+    <a href="homepageadmin.html">Home</a>
+    <a href="boardgameadmin.html">Board Games</a>
+    <a href="reservationadmin.html">Reservation</a>
+    <a href="recordadmin.html">Record</a>
+    <a href="eventmanagement.html">Event Mng.</a>
+    <a href="membermanagement.html">Member Mng.</a>
+    <a href="landingpage.html">Log Out</a>
+  </nav>
+
+  <section class="content">
+    <div class="left-panel">
+      <h3>Next Event:</h3>
+      <form id="eventForm">
+        <input type="text" id="eventDate" placeholder="Event Date (e.g., 18-19/11/2023)">
+        <input type="text" id="eventLink" placeholder="Event Link">
+        <div class="page-buttons">
+            <button onclick="updateEvent()">Update Event</button>
+        </div>
+        <div id="eventImagePreview"></div>
+      </form>
+    </div>
+
+    <div class="bio">
+      <form id="newsForm">
+        <p>{Mr.}{Firstname} {Surname}</p>
+        <h1 class="orange-text"><b>________________________</b></h1>
+        <div class="title-text">
+          <h1>News Topic</h1>
+        </div>
+        <input type="text" id="newsDetails" placeholder="News Details">
+        <input type="text" id="eventDate" placeholder="Event Date (e.g., 18-19/11/2023)">
+        <input type="text" id="newsLink" placeholder="News Link">
+        <input type="file" id="newsImage" accept="image/*" onchange="previewImage(event)">
+        <div class="page-buttons">
+            <button onclick="updateNews()">Update News</button>
+        </div>    
+        <div id="newsImagePreview"></div>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    function updateEvent() {
+      const eventDate = document.getElementById('eventDate').value;
+      const eventDetails = document.getElementById('eventDetails').value;
+      const eventLink = document.getElementById('eventLink').value;
+      const eventImage = document.getElementById('eventImage').files[0]; // Get the selected file
+
+      // Perform actions to update the event details and image
+      // You can use FormData to send the data to a server or perform other actions as required
+    }
+
+    function updateNews() {
+      const newsDetails = document.getElementById('newsDetails').value;
+      const newsLink = document.getElementById('newsLink').value;
+      const newsImage = document.getElementById('newsImage').files[0]; // Get the selected file
+
+      // Perform actions to update the news details and image
+      // You can use FormData to send the data to a server or perform other actions as required
+    }
+
+    function previewImage(event) {
+      const input = event.target;
+      const preview = input.parentElement.querySelector('div[id$="ImagePreview"]');
+      while (preview.firstChild) {
+        preview.removeChild(preview.firstChild);
+      }
+
+      const files = input.files;
+      if (files && files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.style.maxWidth = '200px'; // Adjust image size if needed
+          preview.appendChild(img);
+        }
+        reader.readAsDataURL(files[0]);
+      }
+    }
+  </script>
+</body>
+
+</html>

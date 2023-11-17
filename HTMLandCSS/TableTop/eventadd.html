@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="eventadd.css">
+    <title>SIIT Tabletop Club</title>
+</head>
+<body>
+    <header>
+        <img src="logo.jpg" alt="Logo" id="logo">
+        <div id="header-text">
+            <h1>SIIT Tabletop Club</h1>
+        </div>
+    </header>
+
+    <nav>
+        <a href="homepageadmin.html">Home</a>
+        <a href="boardgameadmin.html">Board Games</a>
+        <a href="reservationadmin.html">Reservation</a>
+        <a href="recordadmin.html">Record</a>
+        <a href="eventmanagement.html">Event Mng.</a>
+        <a href="membermanagement.html">Member Mng.</a>
+        <a href="landingpage.html">Log Out</a>
+    </nav>
+
+    <div class="content">
+        <!-- Your content -->
+        <p>{Mr.}{Firstname} {Surname}</p>
+        <h1 class="orange-text"><b>________________________</b></h1>
+        <h1 class="page-text">Add an Event</h1>
+        <div class="page-form">
+            <img src="event.png" alt="Add an Event Image" class="page-image">
+            <label for="eventName">Event Name:</label>
+            <input type="text" id="eventName" name="eventName" placeholder="Enter event name">
+
+            <label for="topic">Topic:</label>
+            <input type="text" id="topic" name="topic" placeholder="Enter event topic">
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date">
+
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time">
+
+            <label for="type">Type:</label>
+            <input type="text" id="type" name="type" placeholder="Enter event type">
+
+            <label for="openForPublic">Open for Public:</label>
+            <select id="openForPublic" name="openForPublic">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+
+            <div class="page-buttons">
+                <button type="button" onclick="goBack()">Back</button>
+                <button type="button" onclick="addEvent()">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function addEvent() {
+            const eventName = document.getElementById('eventName').value;
+            const topic = document.getElementById('topic').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const type = document.getElementById('type').value;
+            const openForPublic = document.getElementById('openForPublic').value === 'true';
+
+            const newEvent = {
+                name: eventName,
+                topic: topic,
+                date: date,
+                time: time,
+                type: type,
+                openForPublic: openForPublic
+            };
+
+            let events = JSON.parse(localStorage.getItem('events')) || [];
+            events.push(newEvent);
+            localStorage.setItem('events', JSON.stringify(events));
+
+            window.location.href = 'eventmanagement.html';
+        }
+    </script>
+</body>
+</html>

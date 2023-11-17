@@ -1,0 +1,153 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: #FFFBF5;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header styles */
+header {
+    background-color: #9A3197;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+#logo {
+    width: 100px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 20px;
+    border-radius: 50%;
+}
+
+#header-text {
+    display: inline-block;
+    vertical-align: middle;
+    color: #FEF3C7;
+    margin-left: 10px;
+}
+
+nav {
+    background-color: #E084CD;
+    padding: 10px;
+    text-align: left;
+}
+
+nav a {
+    text-decoration: none;
+    color: #FDF6FD;
+    margin: 10px;
+}
+
+/* Content section */
+.content {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    text-align: left;
+    padding: 20px;
+    background-color: #FEF3C7;
+}
+
+.left-panel img {
+    width: 250px;
+    height: 250px;
+    border-radius: 25px;
+    object-fit: cover;
+}
+
+.bio {
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #fff;
+    word-wrap: break-word;
+}
+
+.bio a {
+    max-width: 90%; 
+    display: block;
+    word-wrap: break-word; 
+    margin-bottom: 10px; 
+}
+
+.bio img {
+    max-width: 100%; 
+    height: auto;
+    border-radius: 10px; 
+    margin-top: 10px; 
+}
+
+.orange-text {
+    color: #F59E0B;
+}
+
+.title-text {
+    margin-bottom: 10px;
+    color: #9A3197;
+    text-align: left;
+}
+
+.page-buttons {
+    display: flex;
+    justify-content: left;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin: 0px;
+    cursor: pointer;
+    border-color: #FDF6FD;
+    color: #FDF6FD;
+    background-color: #9A3197;
+}
+
+button:hover {
+    background-color: #9A3197;
+    color: #fff;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .left-panel {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .left-panel img {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 25px;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    nav a {
+        display: block;
+        margin: 10px 0;
+    }
+}

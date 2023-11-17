@@ -1,0 +1,122 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: #FFFBF5;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header styles */
+header {
+    background-color: #9A3197;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+#logo {
+    width: 100px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 20px;
+    border-radius: 50%;
+}
+
+#header-text {
+    display: inline-block;
+    vertical-align: middle;
+    color: #FEF3C7;
+    margin-left: 10px;
+}
+
+nav {
+    background-color: #E084CD;
+    padding: 10px;
+    text-align: left;
+}
+
+nav a {
+    text-decoration: none;
+    color: #FDF6FD;
+    margin: 10px;
+}
+
+/* Content section */
+.content {
+    margin: 30px;
+}
+.page-form {
+    margin: auto;
+    width: 500px; 
+    background-color: #FAF4EC;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.page-text {
+    margin-bottom: 10px;
+    color: #9A3197;
+    text-align: left;
+    align-self: flex-start;
+}
+.orange-text {
+    margin-top: 0%;
+    color: #F59E0B;
+}
+
+.page-image {
+    width: 200px; 
+    height: auto;
+}
+
+.page-inputs {
+    margin-bottom: 20px;
+    width: 500px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.page-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-color: #FDF6FD;
+    color: #FDF6FD;
+    background-color: #9A3197;
+}
+
+button:hover {
+    background-color: #9A3197;
+    color: #fff;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 1000px) {
+.page-form {
+    max-width: 90%;
+}
+}

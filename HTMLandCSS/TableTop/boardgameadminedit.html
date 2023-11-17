@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="boardgameadminedit.css">
+    <title>SIIT Tabletop Club</title>
+</head>
+<body>
+    <header>
+        <img src="logo.jpg" alt="Logo" id="logo">
+        <div id="header-text">
+            <h1>SIIT Tabletop Club</h1>
+        </div>
+    </header>
+
+    <nav>
+        <a href="homepageadmin.html">Home</a>
+        <a href="boardgameadmin.html">Board Games</a>
+        <a href="reservationadmin.html">Reservation</a>
+        <a href="recordadmin.html">Record</a>
+        <a href="eventmanagement.html">Event Mng.</a>
+        <a href="membermanagement.html">Member Mng.</a>
+        <a href="landingpage.html">Log Out</a>
+    </nav>
+
+    <div class="content">
+        <!-- Your content -->
+        <p>{Mr.}{Firstname} {Surname}</p>
+        <h1 class="orange-text"><b>________________________</b></h1>
+        <h1 class="page-text">Edit Board Game</h1>
+        <div class="page-form">
+            <img src="edit.png" alt="Edit Board Game Image" class="page-image">
+            <label for="boardGameName">Board Game Name:</label>
+            <input type="text" id="boardGameName" name="boardGameName" placeholder="Enter board game name">
+
+            <label for="image">Image:</label>
+            <input type="text" id="image" name="image" placeholder="Enter image URL">
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" placeholder="Enter description"></textarea>
+
+            <div class="page-buttons">
+                <button type="button" onclick="goBack()">Back</button>
+                <button type="button" onclick="saveChanges()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function saveChanges() {
+            const boardGameName = document.getElementById('boardGameName').value;
+            const image = document.getElementById('image').value;
+            const description = document.getElementById('description').value;
+
+            const updatedBoardGame = {
+                boardGameName: boardGameName,
+                image: image,
+                description: description
+            };
+
+            // Retrieve board games from localStorage
+            let boardGames = JSON.parse(localStorage.getItem('boardGames')) || [];
+
+            // Find the board game to edit (you might need an ID or unique identifier)
+            // This example assumes you're editing the first board game in the list
+            boardGames[0] = updatedBoardGame; // Replace with your logic to find the correct game
+
+            // Update the board games in localStorage
+            localStorage.setItem('boardGames', JSON.stringify(boardGames));
+
+            // Redirect back to boardgameadmin.html or the appropriate page
+            window.location.href = 'boardgameadmin.html';
+        }
+    </script>
+</body>
+</html>
