@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 11, 2023 at 01:15 AM
+-- Generation Time: Nov 15, 2023 at 04:34 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -20,9 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `siit_tabletop`
 --
-
-CREATE DATABASE IF NOT EXISTS siit_tabletop;
-USE siit_tabletop;
+CREATE DATABASE IF NOT EXISTS `siit_tabletop`;
+USE `siit_tabletop`;
 
 -- --------------------------------------------------------
 
@@ -41,7 +40,7 @@ CREATE TABLE `activity` (
 
 INSERT INTO `activity` (`e_name`, `topic`) VALUES
 ('battleCON course', 'Tutorial for students who want to play battleCON.'),
-('Introduction', 'Introduction of the club.');
+('Introduction', 'Introduction to the club');
 
 -- --------------------------------------------------------
 
@@ -80,15 +79,17 @@ INSERT INTO `boardgame` (`b_name`, `description`, `store`, `weight`, `type`) VAL
 --
 
 CREATE TABLE `competition` (
-  `e_name` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL
+  `e_name` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `game` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `competition`
 --
 
-INSERT INTO `competition` (`e_name`) VALUES
-('TYBC');
+INSERT INTO `competition` (`e_name`, `game`) VALUES
+('TYBC', 'Meduris'),
+('TYBC', 'Newton');
 
 -- --------------------------------------------------------
 
@@ -111,25 +112,6 @@ INSERT INTO `event` (`e_name`, `date`, `time`, `open_for_public`) VALUES
 ('battleCON course', '2023-12-20', '10:00:00', 1),
 ('Introduction', '2023-12-01', '10:00:00', 0),
 ('TYBC', '2023-11-19', '09:50:00', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `game_use`
---
-
-CREATE TABLE `game_use` (
-  `e_name` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `game` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `game_use`
---
-
-INSERT INTO `game_use` (`e_name`, `game`) VALUES
-('TYBC', 'Meduris'),
-('TYBC', 'Newton');
 
 -- --------------------------------------------------------
 
@@ -334,19 +316,13 @@ ALTER TABLE `boardgame`
 -- Indexes for table `competition`
 --
 ALTER TABLE `competition`
-  ADD PRIMARY KEY (`e_name`);
+  ADD PRIMARY KEY (`e_name`,`game`);
 
 --
 -- Indexes for table `event`
 --
 ALTER TABLE `event`
   ADD PRIMARY KEY (`e_name`);
-
---
--- Indexes for table `game_use`
---
-ALTER TABLE `game_use`
-  ADD PRIMARY KEY (`e_name`,`game`);
 
 --
 -- Indexes for table `member`
@@ -375,7 +351,8 @@ ALTER TABLE `play`
   ADD PRIMARY KEY (`std_id`,`b_name`,`date`),
   ADD KEY `date` (`date`),
   ADD KEY `b_name` (`b_name`),
-  ADD KEY `std_id` (`std_id`);
+  ADD KEY `std_id` (`std_id`),
+  ADD KEY `std_id_2` (`std_id`,`b_name`,`date`);
 
 --
 -- Indexes for table `public_participate`
@@ -389,9 +366,7 @@ ALTER TABLE `public_participate`
 --
 ALTER TABLE `record`
   ADD PRIMARY KEY (`std_id`,`b_name`,`date`),
-  ADD KEY `b_name` (`b_name`),
-  ADD KEY `date` (`date`),
-  ADD KEY `std_id` (`std_id`);
+  ADD KEY `std_id` (`std_id`,`b_name`,`date`);
 
 --
 -- Indexes for table `reservation`
@@ -418,12 +393,6 @@ ALTER TABLE `competition`
   ADD CONSTRAINT `competition_ibfk_1` FOREIGN KEY (`e_name`) REFERENCES `event` (`e_name`);
 
 --
--- Constraints for table `game_use`
---
-ALTER TABLE `game_use`
-  ADD CONSTRAINT `game_use_ibfk_1` FOREIGN KEY (`e_name`) REFERENCES `competition` (`e_name`);
-
---
 -- Constraints for table `participate`
 --
 ALTER TABLE `participate`
@@ -434,8 +403,8 @@ ALTER TABLE `participate`
 -- Constraints for table `play`
 --
 ALTER TABLE `play`
-  ADD CONSTRAINT `play_ibfk_1` FOREIGN KEY (`b_name`) REFERENCES `boardgame` (`b_name`),
-  ADD CONSTRAINT `play_ibfk_2` FOREIGN KEY (`std_id`) REFERENCES `member` (`std_id`);
+  ADD CONSTRAINT `play_ibfk_1` FOREIGN KEY (`std_id`) REFERENCES `member` (`std_id`),
+  ADD CONSTRAINT `play_ibfk_2` FOREIGN KEY (`b_name`) REFERENCES `boardgame` (`b_name`);
 
 --
 -- Constraints for table `public_participate`
@@ -448,9 +417,7 @@ ALTER TABLE `public_participate`
 -- Constraints for table `record`
 --
 ALTER TABLE `record`
-  ADD CONSTRAINT `record_ibfk_1` FOREIGN KEY (`std_id`) REFERENCES `play` (`std_id`),
-  ADD CONSTRAINT `record_ibfk_2` FOREIGN KEY (`b_name`) REFERENCES `play` (`b_name`),
-  ADD CONSTRAINT `record_ibfk_3` FOREIGN KEY (`date`) REFERENCES `play` (`date`);
+  ADD CONSTRAINT `FK_RecordPlay` FOREIGN KEY (`std_id`,`b_name`,`date`) REFERENCES `play` (`std_id`, `b_name`, `date`);
 
 --
 -- Constraints for table `reservation`

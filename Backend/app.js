@@ -1,8 +1,10 @@
 import express from 'express'
+import session from 'express-session'
 import cors from 'cors'
 import 'dotenv/config'
 
 // Controller
+import loginController from './controller/loginController.js'
 import memberController from './controller/memberController.js'
 import boardgameController from './controller/boardgameController.js'
 import eventController from './controller/eventController.js'
@@ -20,9 +22,18 @@ const port = 3000
 
 app.use(cors())
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }))
+app.use(session({
+    secret: 'SIIT Tabletop Club',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+  }))
 
 app.get('/', (req, res) => { res.send("SIIT Tabletop Club Backend") })
+
+// Login
+app.post('/login', loginController.post)
 
 // Members
 app.get('/member', memberController.getAll)
