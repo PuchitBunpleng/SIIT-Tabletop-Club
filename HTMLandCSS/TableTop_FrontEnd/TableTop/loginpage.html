@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="loginpage.css">
+  <title>SIIT Tabletop Club</title>
+</head>
+
+<body>
+    <header>
+        <img src="logo.jpg" alt="Logo" id="logo">
+        <div id="header-text">
+            <h1>SIIT Tabletop Club</h1>
+        </div>
+    </header>
+
+    <nav>
+        <a href="landingpage.html">SIIT TC</a>
+        <a href="boardgame.html">Board Games</a>
+    </nav>
+
+    <div class="content">
+        <h1 class="login-text">Login</h1>
+            <div class="login-form">
+                <form>
+                    <img src="login.png" alt="Login Image" class="login-image">       
+                    <div class="login-inputs">
+                        <label for="student-id">Student ID:</label>
+                        <input type="text" id="student-id" name="student-id" placeholder="Enter your student ID">
+
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password">
+                    </div>
+
+                    <div class="login-buttons">
+                        <button type="button" onclick="goBack()">Back</button>
+                        <a href="homepage.html">
+                        <button type="button">Login</button>
+                    </a>   
+                    </div>
+                </form>
+            </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    
+</body>
+
+</html>
