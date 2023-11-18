@@ -129,7 +129,7 @@
 	}
 
 	/* Media queries for responsive design */
-	@media (max-width: 768px) {
+	@media (max-width: 1024px) {
 		.content {
 			flex-direction: column;
 		}

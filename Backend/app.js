@@ -4,7 +4,7 @@ import cors from 'cors'
 import 'dotenv/config'
 
 // Controller
-import loginController from './controller/loginController.js'
+import authController from './controller/authController.js'
 import memberController from './controller/memberController.js'
 import boardgameController from './controller/boardgameController.js'
 import eventController from './controller/eventController.js'
@@ -32,8 +32,9 @@ app.use(session({
 
 app.get('/', (req, res) => { res.send("SIIT Tabletop Club Backend") })
 
-// Login
-app.post('/login', loginController.post)
+// Authentication
+app.post('/login', authController.login)
+app.post('/logout', authController.logout)
 
 // Members
 app.get('/member', memberController.getAll)

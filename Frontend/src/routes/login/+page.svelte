@@ -1,7 +1,25 @@
 <script>
-  let login = () => {
-    axios.post('http://localhost:3000/login')
-  }
+	import axios from 'axios';
+	import { goto } from '$app/navigation';
+	import { userID } from '$lib/store.js';
+
+	let std_id = '';
+	let password = '';
+
+	let login = () => {
+		axios
+			.post('http://localhost:3000/login', {
+				std_id: std_id,
+				password: password
+			})
+			.then((res) => {
+				userID.set(std_id)
+				goto('/home')
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+	};
 </script>
 
 <body>
@@ -11,21 +29,28 @@
 			<form>
 				<img src="images/login.png" alt="Login" class="login-image" />
 				<div class="login-inputs">
-					<label for="student-id">Student ID:</label>
+					<label for="std_id">Student ID:</label>
 					<input
+						bind:value={std_id}
 						type="text"
-						id="student-id"
-						name="student-id"
+						id="std_id"
+						name="std_id"
 						placeholder="Enter your student ID"
 					/>
 
 					<label for="password">Password:</label>
-					<input type="password" id="password" name="password" placeholder="Enter your password" />
+					<input
+						bind:value={password}
+						type="password"
+						id="password"
+						name="password"
+						placeholder="Enter your password"
+					/>
 				</div>
 
 				<div class="login-buttons">
 					<button type="button" onclick="goBack()">Back</button>
-          <button type="button" on:click={login}>Login</button>
+					<button type="button" on:click={login}>Login</button>
 				</div>
 			</form>
 		</div>

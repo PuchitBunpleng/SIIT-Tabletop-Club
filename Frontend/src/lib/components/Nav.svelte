@@ -1,21 +1,20 @@
 <script>
 	import { page } from '$app/stores'
-  import { logged_in } from '$lib/store.js'
+	import { userID } from '$lib/store.js'
 </script>
-
 
 {#if $page.url.pathname === '/'}
 	<nav>
 		<a href="/boardgame">Our Collections!</a>
-    {#if $logged_in}
-      <a href="/home">Home</a>
-      <a href="/logout" class='button'>Log Out</a>
-    {:else}
-      <a href="/login" class="button">Login</a>
-    {/if}
+		{#if $userID}
+			<a href="/home">Home</a>
+			<a href="/logout" class="button">Log Out</a>
+		{:else}
+			<a href="/login" class="button">Login</a>
+		{/if}
 	</nav>
 {:else if $page.url.pathname === '/login'}
-  <nav></nav>
+	<nav />
 {:else}
 	<nav>
 		<div>
@@ -24,7 +23,8 @@
 			<a href="reservationpage.html">Reservation</a>
 			<a href="recordpage.html">Record</a>
 		</div>
-		<a href="/logout" class='button'>Log Out</a>
+		{$userID}
+		<a href="/logout" class="button">Log Out</a>
 	</nav>
 {/if}
 
@@ -52,7 +52,7 @@
 		padding: 0.6rem 1rem;
 		color: #fdf6fd;
 	}
-  .button:hover {
-    background: rgb(154, 49, 151, 0.5);
-  }
+	.button:hover {
+		background: rgb(154, 49, 151, 0.5);
+	}
 </style>

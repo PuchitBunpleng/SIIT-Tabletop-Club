@@ -1,10 +1,10 @@
 import memberModel from "../model/memberModel.js"
 
 
-let post = async (req, res) => {
+let login = async (req, res) => {
     try {
         const result = await memberModel.getByID(req.body.std_id)
-        var password = req.body.password
+        const password = req.body.password
         const inputpass = result[0].password
         if (password === inputpass) {
             const userID = result[0].std_id
@@ -21,4 +21,13 @@ let post = async (req, res) => {
     }
 }
 
-export default { post }
+let logout = (req, res) => {
+    try {
+        req.session.destroy()
+        return res.sendStatus(200)
+    } catch (err) {
+        return res.status(500).json(err.message)
+    }
+}
+
+export default { login, logout }

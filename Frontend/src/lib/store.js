@@ -1,3 +1,5 @@
 import { writable } from "svelte/store"
+import { browser } from "$app/environment"
 
-export let logged_in = new writable(false)
+export const userID = writable(browser && (localStorage.getItem('userID') || ''))
+userID.subscribe(val => browser && localStorage.setItem('userID', val))
