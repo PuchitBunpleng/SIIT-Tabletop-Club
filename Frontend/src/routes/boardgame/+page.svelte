@@ -1,5 +1,7 @@
 <body>
 	<div class="content">
+		<p>{Mr.}{Firstname} {Surname}</p>
+        <h1 class="orange-text"><b>________________________</b></h1>
 		<div class="search-bar">
 			<h1 class="search-text">Board Games</h1>
 			<input type="text" id="search-input" placeholder="Search..." />
@@ -45,6 +47,11 @@
 		margin-bottom: 10px;
 		color: #9a3197;
 		text-align: left;
+	}
+
+	.orange-text {
+    margin-top: 0%;
+    color: #F59E0B;
 	}
 
 	#search-input {
