@@ -1,7 +1,11 @@
 <script>
-	import { onMount } from 'svelte'
-	import axios from 'axios'
-	import { userID } from '$lib/store.js'
+	export let data
+
+	let core = data.core
 </script>
 
-{$userID}
+{#if core}
+	<div></div>
+{:else}
+	<div></div>
+{/if}

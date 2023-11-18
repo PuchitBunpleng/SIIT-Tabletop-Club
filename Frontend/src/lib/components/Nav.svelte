@@ -1,6 +1,6 @@
 <script>
-	import { page } from '$app/stores'
-	import { userID } from '$lib/store.js'
+	import { page } from '$app/stores';
+	import { userID } from '$lib/store.js';
 </script>
 
 {#if $page.url.pathname === '/'}
@@ -23,8 +23,10 @@
 			<a href="reservationpage.html">Reservation</a>
 			<a href="recordpage.html">Record</a>
 		</div>
-		{$userID}
-		<a href="/logout" class="button">Log Out</a>
+		<div>
+			{$userID}
+			<a href="/logout" class="button">Log Out</a>
+		</div>
 	</nav>
 {/if}
 
@@ -36,7 +38,7 @@
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0 0.3rem;
+		padding: 1rem 0.3rem;
 	}
 
 	nav a {
