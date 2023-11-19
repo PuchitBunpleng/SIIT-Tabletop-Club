@@ -20,15 +20,24 @@ import recordController from './controller/recordController.js'
 const app = express()
 const port = 3000
 
-app.use(cors())
+const allowlist = ['http://localhost:5173']
+const corsOptionsDelegate = function (req, callback) {
+  let corsOptions;
+  if (allowlist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true, credentials: true } // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
+app.use(cors(corsOptionsDelegate))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(session({
     secret: 'SIIT Tabletop Club',
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-  }))
+    saveUninitialized: true
+}))
 
 app.get('/', (req, res) => { res.send("SIIT Tabletop Club Backend") })
 

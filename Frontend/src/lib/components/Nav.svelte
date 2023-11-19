@@ -1,17 +1,25 @@
 <script>
-	import { page } from '$app/stores';
-	import { userID } from '$lib/store.js';
+	import { page } from '$app/stores'
+	import { userID } from '$lib/store.js'
+	import AuthButton from './AuthButton.svelte'
 </script>
 
 {#if $page.url.pathname === '/'}
 	<nav>
-		<a href="/boardgame">Our Collections!</a>
-		{#if $userID}
-			<a href="/home">Home</a>
-			<a href="/logout" class="button">Log Out</a>
-		{:else}
-			<a href="/login" class="button">Login</a>
-		{/if}
+		<div>
+			<a href="/boardgame">Our Collections!</a>
+			{#if $userID}
+				<a href="/home">Home</a>
+			{/if}
+		</div>
+		<div class="auth">
+			{#if $userID}
+				<p>ID: {$userID}</p>
+				<AuthButton path="/logout" text="Log out" />
+			{:else}
+				<AuthButton path="/login" text="Log in" />
+			{/if}
+		</div>
 	</nav>
 {:else if $page.url.pathname === '/login'}
 	<nav />
@@ -23,9 +31,9 @@
 			<a href="reservationpage.html">Reservation</a>
 			<a href="recordpage.html">Record</a>
 		</div>
-		<div>
-			{$userID}
-			<a href="/logout" class="button">Log Out</a>
+		<div class='auth'>
+			<p>ID: {$userID}</p>
+			<AuthButton path="/logout" text="Log out" />
 		</div>
 	</nav>
 {/if}
@@ -38,7 +46,7 @@
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		padding: 1rem 0.3rem;
+		padding: 0.8rem;
 	}
 
 	nav a {
@@ -47,14 +55,16 @@
 		margin: 0.8rem;
 	}
 
-	.button {
-		background: #9a3197;
-		border: none;
-		border-radius: 0.8rem;
-		padding: 0.6rem 1rem;
-		color: #fdf6fd;
+	.auth {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
 	}
-	.button:hover {
-		background: rgb(154, 49, 151, 0.5);
+
+	.auth p {
+		margin: 0 1.25rem;
+		color: #fdf6fd;
+		font-weight: 500;
 	}
 </style>

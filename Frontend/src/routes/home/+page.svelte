@@ -5,7 +5,45 @@
 </script>
 
 {#if core}
-	<div></div>
+<body>
+    <header>
+        <img src="logo.jpg" alt="Logo" id="logo">
+        <div id="header-text">
+            <h1>SIIT Tabletop Club</h1>
+        </div>
+    </header>
+
+    <nav>
+      <a href="homepageadmin.html">Home</a>
+      <a href="boardgameadmin.html">Board Games</a>
+      <a href="reservationadmin.html">Reservation</a>
+      <a href="recordadmin.html">Record</a>
+      <a href="eventmanagement.html">Event Mng.</a>
+      <a href="membermanagement.html">Member Mng.</a>
+      <a href="landingpage.html">Log Out</a>
+    </nav>
+
+    <section class="content">
+        <div class="left-panel"> 
+            <h3>Next Event:</h3>
+            <p>18-19/11/2023</p>
+            <p><a href="https://www.facebook.com/100083189385964/posts/pfbid021JB3uxYN9YpXbdur1NCJioPaMFbvAFtRWBRyk9H1RAESCD16Ugu1ZnjgLYdN8YSel/?mibextid=cr9u03" target="_blank">TYBC Thailand Youth Boardgame Championship</a></p>
+            <div class="page-buttons">
+                <button onclick="location.href='homepageadminedit.html'">Edit</button>
+            </div>
+        </div>
+        
+        <div class="bio">
+            <p>Mr. Firstname Surname</p>
+            <h1 class="orange-text"><b>________________________</b></h1>
+            <div class="title-text"><h1>News Topic</h1></div>
+            <p>1. TYBC Thailand Youth Boardgame Championship (Nov. 18(Sat)-19(Sun), 2023)
+            <button class="page-button">Apply</button></p>
+            <p><a href="https://www.facebook.com/100083189385964/posts/pfbid021JB3uxYN9YpXbdur1NCJioPaMFbvAFtRWBRyk9H1RAESCD16Ugu1ZnjgLYdN8YSel/?mibextid=cr9u03" target="_blank">https://www.facebook.com/100083189385964/posts/pfbid021JB3uxYN9YpXbdur1NCJioPaMFbvAFtRWBRyk9H1RAESCD16Ugu1ZnjgLYdN8YSel/?mibextid=cr9u03</a></p>
+            <img src="TYBC.jpg" alt="Profile Image">
+        </div>
+      </section>
+</body>
 {:else}
 	<div></div>
 {/if}
