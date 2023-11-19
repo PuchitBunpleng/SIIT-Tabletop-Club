@@ -19,7 +19,7 @@ const pool = mysql.createPool({
 let getAll = async () => {
     const connection = await pool.getConnection()
     try {
-        const [rows, fields] = await connection.execute('SELECT * FROM `member`')
+        const [rows, fields] = await connection.execute('SELECT std_id, name, tel, curriculum, core FROM `member`')
         return rows
     } catch (err) {
         throw err
@@ -31,7 +31,7 @@ let getAll = async () => {
 let getByID = async (std_id) => {
     const connection = await pool.getConnection()
     try {
-        const query = 'SELECT * FROM `member` WHERE std_id = ?'
+        const query = 'SELECT std_id, name, tel, curriculum, core FROM `member` WHERE std_id = ?'
         const [rows] = await connection.query(query, [std_id])
         return rows
     } catch (err) {
