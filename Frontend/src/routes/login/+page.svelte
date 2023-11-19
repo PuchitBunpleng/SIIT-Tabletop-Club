@@ -1,5 +1,5 @@
 <script>
-	import api from '$lib/config.js'
+	import api from '$lib/api.js'
 	import { goto } from '$app/navigation'
 	import { userID } from '$lib/store.js'
 

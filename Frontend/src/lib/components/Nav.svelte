@@ -1,42 +1,79 @@
 <script>
-	import { page } from '$app/stores'
-	import { userID } from '$lib/store.js'
-	import AuthButton from './AuthButton.svelte'
+  import { onDestroy } from 'svelte';
+  import { page } from '$app/stores';
+  import { userID } from '$lib/store.js';
+  import api from '$lib/api.js';
+  import AuthButton from './AuthButton.svelte';
+
+  let core = 0;
+
+  const fetchData = async () => {
+    let id = $userID;
+
+    if (id) {
+      try {
+        const response = await api.get(`/member/${id}`);
+        core = response.data[0].core;
+        console.log(core);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  // Run fetchData on component mount
+  fetchData();
+
+  // Run fetchData every time the page store changes (routing changes)
+  const unsubscribe = page.subscribe(() => {
+    fetchData();
+  });
+
+  // Unsubscribe from the page store when the component is destroyed
+  onDestroy(() => {
+    unsubscribe();
+  });
 </script>
 
-{#if $page.url.pathname === '/'}
-	<nav>
-		<div>
-			<a href="/boardgame">Our Collections!</a>
-			{#if $userID}
+{#key core}
+	{#if $page.url.pathname === '/'}
+		<nav>
+			<div>
+				<a href="/boardgame">Our Collections!</a>
+				{#if $userID}
+					<a href="/home">Home</a>
+				{/if}
+			</div>
+			<div class="auth">
+				{#if $userID}
+					<p>ID: {$userID}</p>
+					<AuthButton path="/logout" text="Log out" />
+				{:else}
+					<AuthButton path="/login" text="Log in" />
+				{/if}
+			</div>
+		</nav>
+	{:else if $page.url.pathname === '/login'}
+		<nav />
+	{:else}
+		<nav>
+			<div>
 				<a href="/home">Home</a>
-			{/if}
-		</div>
-		<div class="auth">
-			{#if $userID}
+				<a href="/boardgame">Board Games</a>
+				<a href="/reserve">Reservation</a>
+				<a href="/record">Record</a>
+				{#if core}
+					<a href="/event">Event Management</a>
+					<a href="/member">Member Management</a>
+				{/if}
+			</div>
+			<div class="auth">
 				<p>ID: {$userID}</p>
 				<AuthButton path="/logout" text="Log out" />
-			{:else}
-				<AuthButton path="/login" text="Log in" />
-			{/if}
-		</div>
-	</nav>
-{:else if $page.url.pathname === '/login'}
-	<nav />
-{:else}
-	<nav>
-		<div>
-			<a href="homepage.html">Home</a>
-			<a href="boardgamemember.html">Board Games</a>
-			<a href="reservationpage.html">Reservation</a>
-			<a href="recordpage.html">Record</a>
-		</div>
-		<div class='auth'>
-			<p>ID: {$userID}</p>
-			<AuthButton path="/logout" text="Log out" />
-		</div>
-	</nav>
-{/if}
+			</div>
+		</nav>
+	{/if}
+{/key}
 
 <style>
 	nav {

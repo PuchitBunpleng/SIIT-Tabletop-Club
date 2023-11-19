@@ -17,6 +17,9 @@ import reservationController from './controller/reservationController.js'
 import playController from './controller/playController.js'
 import recordController from './controller/recordController.js'
 
+// Middleware
+import authMiddleware from './middleware/authMiddleware.js'
+
 const app = express()
 const port = 3000
 
@@ -47,7 +50,7 @@ app.post('/logout', authController.logout)
 
 // Members
 app.get('/member', memberController.getAll)
-app.get('/member/:id', memberController.get)
+app.get('/member/:id', authMiddleware.notLoggedIn, memberController.get)
 app.post('/member', memberController.post)
 app.put('/member/:id', memberController.put)
 app.delete('/member/:id', memberController.del)
