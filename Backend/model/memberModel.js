@@ -31,6 +31,19 @@ let getAll = async () => {
 let getByID = async (std_id) => {
     const connection = await pool.getConnection()
     try {
+        const query = 'SELECT * FROM `member` WHERE std_id = ?'
+        const [rows] = await connection.query(query, [std_id])
+        return rows
+    } catch (err) {
+        throw err
+    } finally {
+        connection.release()
+    }
+}
+
+let getByIDwithoutPass = async (std_id) => {
+    const connection = await pool.getConnection()
+    try {
         const query = 'SELECT std_id, name, tel, curriculum, core FROM `member` WHERE std_id = ?'
         const [rows] = await connection.query(query, [std_id])
         return rows
@@ -80,4 +93,4 @@ let deleteByID = async (std_id) => {
     }
 }
 
-export default { getAll, getByID, add, updateByID, deleteByID }
+export default { getAll, getByID, add, updateByID, deleteByID,getByIDwithoutPass }

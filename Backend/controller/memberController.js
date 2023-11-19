@@ -11,7 +11,7 @@ let getAll = async (req, res) => {
 
 let get = async (req, res) => {
     try {
-        const result = await memberModel.getByID(req.params.id)
+        const result = await memberModel.getByIDwithoutPass(req.params.id)
         return res.status(200).json(result)
     } catch (err) {
         return res.status(500).json(err.message)
