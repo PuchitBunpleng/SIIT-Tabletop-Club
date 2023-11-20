@@ -2,10 +2,12 @@
 	import { onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { userID } from '$lib/store.js';
+	import { goto } from '$app/navigation'
 	import api from '$lib/api.js';
 	import AuthButton from './AuthButton.svelte';
 
 	let core = 0;
+	$: UID = null;
 
 	const fetchData = async () => {
 		let id = '';
@@ -16,10 +18,16 @@
 		if (id) {
 			try {
 				const response = await api.get(`/member/${id}`);
+				UID = response?.data[0]?.std_id;
 				core = response?.data[0]?.core || 0;
-			} catch (error) {
-				console.log(error);
+			} catch (err) {
+				let error = err.response.status;
+				if (error === 403) {
+					goto('/logout');
+				}
 			}
+		} else {
+			UID = null;
 		}
 	};
 
@@ -42,13 +50,13 @@
 		<nav>
 			<div>
 				<a href="/boardgame">Our Collections!</a>
-				{#if $userID}
+				{#if UID}
 					<a href="/home">Home</a>
 				{/if}
 			</div>
 			<div class="auth">
-				{#if $userID}
-					<p>ID: {$userID}</p>
+				{#if UID}
+					<p>ID: {UID}</p>
 					<AuthButton path="/logout" text="Log out" />
 				{:else}
 					<AuthButton path="/login" text="Log in" />
@@ -70,7 +78,7 @@
 				{/if}
 			</div>
 			<div class="auth">
-				<p>ID: {$userID}</p>
+				<p>ID: {UID}</p>
 				<AuthButton path="/logout" text="Log out" />
 			</div>
 		</nav>
