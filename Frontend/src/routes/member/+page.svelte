@@ -1,4 +1,6 @@
 <script>
+    import api from '$lib/api.js';
+    import {goto} from '$app/navigation'
 	export let data;
 
 	let member = data?.member;
@@ -6,6 +8,24 @@
     let membername = data?.membername;
     let row_num = 0;
     if(member){row_num = member.length}
+
+
+    /*let std_id = 0;
+	let deleteMember = (id) => {
+        console.log(id)
+        std_id = id
+		api
+			.delete(`/member/${std_id}`)
+			.then((res) => {
+				console.log(res);
+            alert('Delete successfully')
+            goto('/member');
+			})
+            
+			.catch((err) => {
+				console.log(err.message);
+			});
+	};*/
 </script>
 
 <body>
@@ -38,8 +58,8 @@
 							<td>{row.name}</td>
 							<td>{row.tel}</td>
 							<td>{row.curriculum}</td>
-							<td><button onclick="location.href='/member/edit'">Edit</button></td>
-							<td><button onclick="location.href='memberadd.html'">Delete</button></td>
+							<td><button onclick="location.href='/member/edit/{row.std_id}'">Edit</button></td>
+							<td><button onclick="location.href='/member/edit/{row.std_id}'">Delete</button></td>
 						</tr>
 					{/each}
 				{/if}
