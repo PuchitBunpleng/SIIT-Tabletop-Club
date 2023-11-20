@@ -9,7 +9,7 @@ let login = async (req, res) => {
         if (password === inputpass) {
             const userID = result[0].std_id
             const core = result[0].core
-            req.session.userID = userID
+            req.session.userID = userID.toString()
             req.session.core = core
             return res.sendStatus(200)
         }
