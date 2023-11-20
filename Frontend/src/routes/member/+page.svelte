@@ -4,7 +4,8 @@
 	let member = data?.member;
     let memberall = data?.memberall;
     let membername = data?.membername;
-    let row_num = member.length;
+    let row_num = 0;
+    if(member){row_num = member.length}
 </script>
 
 <body>

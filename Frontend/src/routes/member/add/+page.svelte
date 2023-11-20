@@ -1,5 +1,6 @@
 <script>
 	import api from '$lib/api.js';
+    import {goto} from '$app/navigation'
 
 	export let data;
 
@@ -59,7 +60,7 @@
               
 
 			<div class="page-buttons">
-				<button type="button" onclick="goBack()">Back</button>
+				<button type="button" on:click={()=>{goto('/member')}}>Back</button>
 				<button type="button" on:click={addMember}>Add</button>
 			</div>
 		</div>
