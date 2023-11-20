@@ -1,44 +1,62 @@
 <script>
-	import { onMount } from 'svelte';
-	import { getAllBoardGames } from './path/to/page.js';
-  
-	let boardGames = []; // Reactive variable to store fetched board games
-  
-	onMount(async () => {
-    try {
-      const data = await getAllBoardGames(); // Fetch board games from the backend
-      console.log('Fetched data:', data); // Log fetched data to the console for debugging
-      boardGames = data; // Update the reactive variable with the fetched data
-    } catch (error) {
-      console.error('Error fetching board games:', error); // Log any error to the console
-    }
-  	});
-  </script>
+	export let data;
+	console.log(data);
+	let core = data?.core;
+</script>
 
-<body>
-	<div class="content">
-		<p>{Mr.}{Firstname} {Surname}</p>
-        <h1 class="orange-text"><b>________________________</b></h1>
-		<div class="search-bar">
-			<h1 class="search-text">Board Games</h1>
-			<input type="text" id="search-input" placeholder="Search..." />
-			<button id="search-button">Search</button>
+{#if core}
+	<body>
+		<div class="content">
+			<div class="search-bar">
+				<h1 class="search-text">Board Games</h1>
+				<input type="text" id="search-input" placeholder="Search...">
+				<button id="search-button">Search</button>
+			</div>
+
+			<table>
+				<thead>
+					<tr>
+						<th>Board Game</th>
+						<th>Description</th>
+						<th>Edit</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody id="boardGameTableBody">
+					<!-- This part will be populated dynamically -->
+				</tbody>
+			</table>
+			<div class="page-buttons">
+				<button onclick="location.href='/boardgame/add'">Add</button>
+			</div>
 		</div>
+	</body>
 
-		<table>
-			<!-- Your SQL data will be dynamically inserted here -->
-			<tr>
-				<th>Board Game</th>
-				<th>Description</th>
-			</tr>
-			<!-- Example row -->
-			<tr>
-				<td>{game.b_name}</td>
-          		<td>{game.description}</td>
-			</tr>
-		</table>
-	</div>
-</body>
+{:else}
+	<body>
+		<div class="content">
+			<h1 class="orange-text"><b>________________________</b></h1>
+			<div class="search-bar">
+				<h1 class="search-text">Board Games</h1>
+				<input type="text" id="search-input" placeholder="Search..." />
+				<button id="search-button">Search</button>
+			</div>
+
+			<table>
+				<!-- Your SQL data will be dynamically inserted here -->
+				<tr>
+					<th>Board Game</th>
+					<th>Description</th>
+				</tr>
+				<!-- Example row -->
+				<tr>
+					<td>{data.b_name}</td>
+					<td>{data.description}</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+{/if}
 
 <style>
 	body {
