@@ -12,11 +12,11 @@
     <div class="content">
         <h1>{membername?.name}</h1>
         <h1 class="orange-text"><b>________________________</b></h1>
-        <div class="search-bar">
+<!--        <div class="search-bar">
             <h1 class="search-text">Member Management</h1>
             <input type="text" id="search-input" placeholder="Search...">
-            <button id="search-button">Search</button>
-        </div>
+            <button id="search-button" >Search</button>
+        </div> -->
 
         <table>
             <thead>
@@ -37,15 +37,15 @@
 							<td>{row.name}</td>
 							<td>{row.tel}</td>
 							<td>{row.curriculum}</td>
-							<td>Edit</td>
-							<td>Delete</td>
+							<td><button onclick="location.href='/member/edit'">Edit</button></td>
+							<td><button onclick="location.href='memberadd.html'">Delete</button></td>
 						</tr>
 					{/each}
 				{/if}
             </tbody>
         </table>
         <div class="page-buttons">
-            <button onclick="location.href='memberadd.html'">Add</button>
+            <button onclick="location.href='/member/add'">Add</button>
         </div>
     </div>
 

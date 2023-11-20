@@ -11,6 +11,6 @@ export async function load() {
       let membername = (await api.get(`/member/${id}`)).data[0]
       return {member,membername,memberall}
     } catch (err) {
-      throw error(500, err.message);
+      console.log(err.response.data.message)
     }
   }
