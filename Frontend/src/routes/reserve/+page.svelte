@@ -1,4 +1,6 @@
 <script>
+  import api from '$lib/api.js'
+
 	export let data;
 
 	let member = data?.member;
@@ -43,7 +45,14 @@
 							<td>{row.r_time}</td>
 							<td>{row.r_b_name}</td>
 							<td><a href="/reserve/{row.r_id}"><img src="/images/editicon.png" alt="edit" width="25rem"></a></td>
-							<td><img src="/images/delete.png" alt="delete" width="25rem"></td>
+							<td><button on:click={() => {
+                api.delete(`/reservation/${row.r_id}`).then(res => {
+                  alert("Delete successfully")
+                  location.reload(true);
+                }).catch(err => {
+                  console.log(err)
+                })
+              }} id="delete"><img src="/images/delete.png" alt="delete" width="25rem"></button></td>
 						</tr>
 					{/each}
 				{/if}
@@ -128,6 +137,10 @@
 		background-color: #9a3197;
 		color: #fff;
 	}
+
+  #delete {
+    background-color: rgb(230, 85, 85);
+  }
 	/* Media queries for responsive design */
 	@media (max-width: 1000px) {
 	}

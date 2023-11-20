@@ -49,7 +49,6 @@ let post = async (req, res) => {
 }
 
 let put = async (req, res) => {
-    console.log(req.body)
     try {
         await reservationModel.updateByID(req.body.r_id, req.body.r_date, req.body.r_time, req.session.userID, req.body.r_b_name, req.body.r_cancel)
         return res.sendStatus(200)
@@ -61,7 +60,7 @@ let put = async (req, res) => {
 
 let del = async (req, res) => {
     try {
-        await reservationModel.deleteByID(req.body.r_id)
+        await reservationModel.deleteByID(req.params.id)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
