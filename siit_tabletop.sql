@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 15, 2023 at 04:34 AM
+-- Generation Time: Nov 20, 2023 at 12:47 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `siit_tabletop`
 --
-CREATE DATABASE IF NOT EXISTS `siit_tabletop`;
-USE `siit_tabletop`;
 
 -- --------------------------------------------------------
 
@@ -63,7 +61,7 @@ CREATE TABLE `boardgame` (
 INSERT INTO `boardgame` (`b_name`, `description`, `store`, `weight`, `type`) VALUES
 ('7 Wonders: Architects', 'Seven wonder architect is a 2-7 players race to become a leader of the ancient world by completing an architectural wonder that will last through the ages. Players receive an unconstructed wonder at the beginning of the game and must collect resources to build their society, develop military might to navigate conflicts, oversee resource management, research science improvements, and collect civil victory points as they race to leave their mark on world history.', 'Lanlalen', '1.35', 'Casual'),
 ('Agricola', 'Agricola is a turn-based game. There are 14 game rounds occurring in 6 stages, with a Harvest at the end of each stage. Each player starts with two playing tokens and thus can take two turns, or actions, per round. There are multiple options, and while the game progresses, you\'ll have more and more: first thing in a round, a new action card is flipped over.', 'Lanlalen', '3.64', 'Euro'),
-('Azul', 'In the game Azul, players take turns drafting colored tiles from suppliers to their player board. Later in the round, players score points based on how they\'ve placed their tiles to decorate the palace. Extra points are scored for specific patterns and completing sets; wasted supplies harm the player\'s score. ', 'Tower Tactic Games', '1.76', 'Casual'),
+('ask', 'hat', 'ss', '3', 'euro'),
 ('BattleCON Devastation of Indines', 'BattleCON: Devastation of Indines is a dueling card game for head-to-head or team play. Characters have unique gameplay mechanisms for strategic combat. While characters have diverse play styles, they all use the same foundational tactics, making it accessible yet challenging. Players navigate a seven-space board, combining unique styles and abilities with shared cards for attacks. The last one standing emerges as the victor.', 'Golden Goblin Games', '3.09', 'Euro'),
 ('China town', 'China towns is a multiplayer negotiation game.Player will play as Chinese people that move and settle in Chinatown town. For each turn people will be given start money, random deed and store after that every player will be freely to negotiate to each other then player will take turn to open their store .At the end of turn player will get salary base on store If they create store next to their own ,they will be given a bonus money.This game will end in 6 round or years and who have the most money will win.', 'Siam Board Games', '2.25', 'Casual'),
 ('Marco Polo II', 'Marco Polo II: In the Service of the Khan, an epic follow-up to The Voyages of Marco Polo. After traveling to Beijing, your travels now take you back to the West in the service of the Khan, sending you to the farthest reaches of his empire in search of wealth and fame. ', 'Lanlalen', '3.38', 'Euro'),
@@ -279,7 +277,7 @@ INSERT INTO `record` (`std_id`, `b_name`, `date`, `winner`, `point`) VALUES
 --
 
 CREATE TABLE `reservation` (
-  `r_id` int(10) NOT NULL,
+  `r_id` int(11) NOT NULL,
   `r_date` date NOT NULL,
   `r_time` time NOT NULL,
   `r_std_id` bigint(10) NOT NULL,
@@ -293,8 +291,10 @@ CREATE TABLE `reservation` (
 
 INSERT INTO `reservation` (`r_id`, `r_date`, `r_time`, `r_std_id`, `r_b_name`, `r_cancel`) VALUES
 (1, '2023-11-20', '16:30:00', 6422000008, 'Marco Polo II', 0),
-(2, '2023-11-21', '17:00:00', 6422000001, 'China town', 0),
-(3, '2023-11-23', '18:00:00', 6422000003, 'Root', 1);
+(2, '2023-11-21', '18:00:00', 6422000001, 'China town', 0),
+(3, '2023-11-23', '18:00:00', 6422000003, 'Root', 1),
+(4, '2023-11-20', '16:30:00', 6422000004, 'Agricola', 0),
+(5, '2023-11-21', '18:00:00', 6422000001, 'China town', 0);
 
 --
 -- Indexes for dumped tables
@@ -375,6 +375,16 @@ ALTER TABLE `reservation`
   ADD PRIMARY KEY (`r_id`),
   ADD KEY `r_std_id` (`r_std_id`,`r_b_name`),
   ADD KEY `r_b_name` (`r_b_name`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `reservation`
+--
+ALTER TABLE `reservation`
+  MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

@@ -67,11 +67,11 @@ let getByGameID = async (r_b_name) => {
     }
 }
 
-let add = async (r_id, r_date, r_time, r_std_id, r_b_name, r_cancel) => {
+let add = async (r_date, r_time, r_std_id, r_b_name, r_cancel) => {
     const connection = await pool.getConnection()
     try {
-        const query = "INSERT INTO reservation (r_id, r_date, r_time, r_std_id, r_b_name, r_cancel) VALUES (?, ?, ?, ?, ?, ?)"
-        const [rows] = await connection.query(query, [r_id, r_date, r_time, r_std_id, r_b_name, r_cancel])
+        const query = "INSERT INTO reservation (r_date, r_time, r_std_id, r_b_name, r_cancel) VALUES (?, ?, ?, ?, ?)"
+        const [rows] = await connection.query(query, [r_date, r_time, r_std_id, r_b_name, r_cancel])
         return rows
     } catch (err) {
         throw err
