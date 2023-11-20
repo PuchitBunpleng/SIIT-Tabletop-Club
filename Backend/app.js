@@ -112,7 +112,7 @@ app.get('/reservation/:id', coreMiddleware.coreCheck, reservationController.get)
 app.get('/reservation/member/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,reservationController.getByStd)
 app.get('/reservation/game/:id', authMiddleware.notLoggedIn,reservationController.getByGame)
 // params for put and delete use std_id
-app.post('/reservation/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,reservationController.post)
+app.post('/reservation', authMiddleware.notLoggedIn,reservationController.post)
 app.put('/reservation/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,reservationController.put)
 app.delete('/reservation/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,reservationController.del)
 

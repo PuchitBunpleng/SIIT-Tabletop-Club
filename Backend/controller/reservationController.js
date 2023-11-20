@@ -41,7 +41,7 @@ let getByGame = async (req, res) => {
 
 let post = async (req, res) => {
     try {
-        await reservationModel.add(req.body.r_date, req.body.r_time, req.params.id, req.body.r_b_name, req.body.r_cancel)
+        await reservationModel.add(req.body.r_date, req.body.r_time, req.session.userID, req.body.r_b_name, req.body.r_cancel)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
