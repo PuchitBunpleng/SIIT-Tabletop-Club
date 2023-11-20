@@ -7,7 +7,9 @@ export async function load() {
       let id = null
       userID.subscribe(val => { id = val })
       let member = (await api.get(`/member/${id}`)).data
-      return {member}
+      let memberall = (await api.get(`/member`)).data
+      let membername = (await api.get(`/member/${id}`)).data[0]
+      return {member,membername,memberall}
     } catch (err) {
       throw error(500, err.message);
     }

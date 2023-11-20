@@ -2,13 +2,15 @@
 	export let data;
 
 	let member = data?.member;
+    let memberall = data?.memberall;
+    let membername = data?.membername;
     let row_num = member.length;
 </script>
 
 <body>
 
     <div class="content">
-        <h1>{member?.name}</h1>
+        <h1>{membername?.name}</h1>
         <h1 class="orange-text"><b>________________________</b></h1>
         <div class="search-bar">
             <h1 class="search-text">Member Management</h1>
@@ -29,7 +31,7 @@
             </thead>
             <tbody>
                 {#if row_num}
-					{#each member as row (row.std_id)}
+					{#each memberall as row (row.std_id)}
 						<tr>
 							<td>{row.std_id}</td>
 							<td>{row.name}</td>
