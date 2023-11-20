@@ -93,11 +93,11 @@ let updateByID = async (r_id, r_date, r_time, r_std_id, r_b_name, r_cancel) => {
     }
 }
 
-let deleteByID = async (r_std_id,r_id) => {
+let deleteByID = async (r_id) => {
     const connection = await pool.getConnection()
     try {
-        const query = 'DELETE FROM `reservation` where r_id = ? AND r_std_id = ?'
-        const [rows] = await connection.query(query, [r_id,r_std_id])
+        const query = 'DELETE FROM `reservation` where r_id = ?'
+        const [rows] = await connection.query(query, [r_id])
         return rows
     } catch (err) {
         throw err

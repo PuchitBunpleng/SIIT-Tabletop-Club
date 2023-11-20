@@ -108,12 +108,12 @@ app.delete('/competition', coreMiddleware.coreCheck, competitionController.del)
 
 // Reservation
 app.get('/reservation', coreMiddleware.coreCheck, reservationController.getAll)
-app.get('/reservation/:id', coreMiddleware.coreCheck, reservationController.get)
+app.get('/reservation/:id', reservationController.get)
 app.get('/reservation/member/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,reservationController.getByStd)
 app.get('/reservation/game/:id', authMiddleware.notLoggedIn,reservationController.getByGame)
-// params for put and delete use std_id
+// params for put and delete use r_id
 app.post('/reservation', authMiddleware.notLoggedIn,reservationController.post)
-app.put('/reservation/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,reservationController.put)
+app.put('/reservation/:id', authMiddleware.notLoggedIn, reservationController.put)
 app.delete('/reservation/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,reservationController.del)
 
 // Play

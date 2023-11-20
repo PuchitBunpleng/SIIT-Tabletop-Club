@@ -51,7 +51,7 @@
 				</div>
 
 				<div class="login-buttons">
-					<button type="button" onclick="goBack()">Back</button>
+					<button type="button" on:click={() => { goto('/') }}>Back</button>
 					<button type="submit">Login</button>
 				</div>
 			</form>

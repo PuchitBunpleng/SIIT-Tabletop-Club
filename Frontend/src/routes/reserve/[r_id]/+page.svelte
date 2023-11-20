@@ -1,19 +1,20 @@
 <script>
 	import api from '$lib/api.js';
-  import { goto } from '$app/navigation'
+	import { goto } from '$app/navigation';
 
 	export let data;
 
 	let member = data?.member;
-  console.log(data.boardgame)
-
-	$: r_date = '';
-	$: r_time = '';
-	$: r_b_name = '';
-	$: r_cancel = 0;
-	let addReservation = () => {
+  let reservation = data?.reservation
+  let r_id = data.r_id;
+  let r_date = ((reservation.r_date).split("T"))[0]
+	$: r_time = reservation?.r_time;
+	$: r_b_name = reservation?.r_b_name;
+	$: r_cancel = reservation?.r_cancel;
+	let updateReservation = () => {
 		api
-			.post('/reservation', {
+			.put(`/reservation/${data.r_id}`, {
+        r_id,
 				r_date,
         r_time,
         r_b_name,
@@ -21,7 +22,7 @@
 			})
 			.then((res) => {
 				console.log(res);
-        alert('Add successfully')
+        alert('Update successfully')
         goto('/reserve');
 			})
 			.catch((err) => {
@@ -46,16 +47,21 @@
 
 			<label for="boardgame">Board Game:</label>
 			<select bind:value={r_b_name}>
-        {#each data.boardgame as game}
-          <option value={game.b_name}>
-            {game.b_name}
-          </option>
-        {/each}
-      </select>
+				{#each data.boardgame as game}
+					<option value={game.b_name}>
+						{game.b_name}
+					</option>
+				{/each}
+			</select>
 
 			<div class="page-buttons">
-				<button type="button" on:click={() => { goto('/reserve') }}>Back</button>
-				<button type="button" on:click={addReservation}>Add</button>
+				<button
+					type="button"
+					on:click={() => {
+						goto('/reserve');
+					}}>Back</button
+				>
+				<button type="submit" on:click={updateReservation}>Update</button>
 			</div>
 		</div>
 	</div>
@@ -75,7 +81,7 @@
 	/* Content section */
 	.content {
 		margin: 30px;
-    padding-bottom: 8rem;
+		padding-bottom: 8rem;
 	}
 	.page-form {
 		margin: auto;
@@ -101,7 +107,8 @@
 		margin-bottom: 5px;
 	}
 
-	input, select {
+	input,
+	select {
 		width: 100%;
 		padding: 8px;
 		margin-bottom: 10px;
@@ -111,7 +118,7 @@
 	.page-buttons {
 		display: flex;
 		justify-content: center;
-    margin-top: 1rem;
+		margin-top: 1rem;
 	}
 
 	button {

@@ -2,7 +2,6 @@
 	export let data;
 
 	let member = data?.member;
-  console.log(member)
 	let reservation = data?.reservation;
 	let row_num = 0;
 	if (reservation) {
@@ -43,8 +42,8 @@
 							<td>{row.r_date}</td>
 							<td>{row.r_time}</td>
 							<td>{row.r_b_name}</td>
-							<td>Edit</td>
-							<td>Delete</td>
+							<td><a href="/reserve/{row.r_id}"><img src="/images/editicon.png" alt="edit" width="25rem"></a></td>
+							<td><img src="/images/delete.png" alt="delete" width="25rem"></td>
 						</tr>
 					{/each}
 				{/if}
@@ -52,7 +51,7 @@
 		</table>
 		<div class="reserve-buttons">
 			<button onclick="location.href='/reserve/add'">Add</button>
-      <button onclick="location.href='/reserve/cancel'">View my cancellation</button>
+      <!-- <button onclick="location.href='/reserve/cancel'">View my cancellation</button> -->
 		</div>
 	</div>
 </body>
