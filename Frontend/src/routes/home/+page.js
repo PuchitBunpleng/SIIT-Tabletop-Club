@@ -1,4 +1,3 @@
-import { error } from '@sveltejs/kit'
 import { userID } from '$lib/store.js'
 import api from '$lib/api.js'
 
