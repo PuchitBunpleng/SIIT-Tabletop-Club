@@ -29,6 +29,7 @@ let post = async (req, res) => {
 }
 
 let put = async (req, res) => {
+    console.log(req.body)
     try {
         await memberModel.updateByID(req.body.std_id, req.body.password, req.body.name, req.body.tel, req.body.curriculum, req.body.core)
         return res.sendStatus(200)

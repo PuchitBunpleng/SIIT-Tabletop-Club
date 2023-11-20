@@ -58,8 +58,15 @@
 							<td>{row.name}</td>
 							<td>{row.tel}</td>
 							<td>{row.curriculum}</td>
-							<td><button onclick="location.href='/member/edit/{row.std_id}'">Edit</button></td>
-							<td><button onclick="location.href='/member/edit/{row.std_id}'">Delete</button></td>
+							<td><a href="/member/{row.std_id}"><img src="/images/editicon.png" alt="edit" width="25rem"></a></td>
+							<td><button on:click={() => {
+                                api.delete(`/member/${row.std_id}`).then(res => {
+                                  alert("Delete successfully")
+                                  location.reload(true);
+                                }).catch(err => {
+                                  console.log(err)
+                                })
+                              }} id="delete"><img src="/images/delete.png" alt="delete" width="25rem"></button></td>
 						</tr>
 					{/each}
 				{/if}
