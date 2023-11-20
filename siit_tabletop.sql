@@ -20,6 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `siit_tabletop`
 --
+DROP DATABASE IF EXISTS `siit_tabletop`;
+CREATE DATABASE IF NOT EXISTS `siit_tabletop`;
+USE `siit_tabletop`;
 
 -- --------------------------------------------------------
 
