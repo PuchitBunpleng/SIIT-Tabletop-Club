@@ -14,7 +14,7 @@
 		if (id) {
 			try {
 				const response = await api.get(`/member/${id}`);
-				core = response.data[0].core;
+				core = response.data[0].core || 0;
 			} catch (error) {
 				console.log(error);
 			}
