@@ -1,38 +1,38 @@
 <script>
-  import { onDestroy } from 'svelte';
-  import { page } from '$app/stores';
-  import { userID } from '$lib/store.js';
-  import api from '$lib/api.js';
-  import AuthButton from './AuthButton.svelte';
+	import { onDestroy } from 'svelte';
+	import { page } from '$app/stores';
+	import { userID } from '$lib/store.js';
+	import api from '$lib/api.js';
+	import AuthButton from './AuthButton.svelte';
 
-  let core = 0;
+	let core = 0;
 
-  const fetchData = async () => {
-    let id = $userID;
+	const fetchData = async () => {
+		let id = ''
+    userID.subscribe(val => { id = val })
 
-    if (id) {
-      try {
-        const response = await api.get(`/member/${id}`);
-        core = response.data[0].core;
-        console.log(core);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
+		if (id) {
+			try {
+				const response = await api.get(`/member/${id}`);
+				core = response.data[0].core;
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	};
 
-  // Run fetchData on component mount
-  fetchData();
+	// Run fetchData on component mount
+	fetchData();
 
-  // Run fetchData every time the page store changes (routing changes)
-  const unsubscribe = page.subscribe(() => {
-    fetchData();
-  });
+	// Run fetchData every time the page store changes (routing changes)
+	const unsubscribe = page.subscribe(() => {
+		fetchData();
+	});
 
-  // Unsubscribe from the page store when the component is destroyed
-  onDestroy(() => {
-    unsubscribe();
-  });
+	// Unsubscribe from the page store when the component is destroyed
+	onDestroy(() => {
+		unsubscribe();
+	});
 </script>
 
 {#key core}
