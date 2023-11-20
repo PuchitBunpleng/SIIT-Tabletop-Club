@@ -1,45 +1,44 @@
 <script>
-  export let data;
+	export let data;
 
-  function updateEvent() {
-    
-    const eventDate = document.getElementById('eventDate').value;
-    const eventDetails = document.getElementById('eventDetails').value;
-    const eventLink = document.getElementById('eventLink').value;
-    const eventImage = document.getElementById('eventImage').files[0]; // Get the selected file
+	function updateEvent() {
+		const eventDate = document.getElementById('eventDate').value;
+		const eventDetails = document.getElementById('eventDetails').value;
+		const eventLink = document.getElementById('eventLink').value;
+		const eventImage = document.getElementById('eventImage').files[0]; // Get the selected file
 
-    // Perform actions to update the event details and image
-    // You can use FormData to send the data to a server or perform other actions as required
-  }
+		// Perform actions to update the event details and image
+		// You can use FormData to send the data to a server or perform other actions as required
+	}
 
-  function updateNews() {
-    const newsDetails = document.getElementById('newsDetails').value;
-    const newsLink = document.getElementById('newsLink').value;
-    const newsImage = document.getElementById('newsImage').files[0]; // Get the selected file
+	function updateNews() {
+		const newsDetails = document.getElementById('newsDetails').value;
+		const newsLink = document.getElementById('newsLink').value;
+		const newsImage = document.getElementById('newsImage').files[0]; // Get the selected file
 
-    // Perform actions to update the news details and image
-    // You can use FormData to send the data to a server or perform other actions as required
-  }
+		// Perform actions to update the news details and image
+		// You can use FormData to send the data to a server or perform other actions as required
+	}
 
-  function previewImage(event) {
-    const input = event.target;
-    const preview = input.parentElement.querySelector('div[id$="ImagePreview"]');
-    while (preview.firstChild) {
-      preview.removeChild(preview.firstChild);
-    }
+	function previewImage(event) {
+		const input = event.target;
+		const preview = input.parentElement.querySelector('div[id$="ImagePreview"]');
+		while (preview.firstChild) {
+			preview.removeChild(preview.firstChild);
+		}
 
-    const files = input.files;
-    if (files && files[0]) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        img.style.maxWidth = '200px'; // Adjust image size if needed
-        preview.appendChild(img);
-      };
-      reader.readAsDataURL(files[0]);
-    }
-  }
+		const files = input.files;
+		if (files && files[0]) {
+			const reader = new FileReader();
+			reader.onload = function (e) {
+				const img = document.createElement('img');
+				img.src = e.target.result;
+				img.style.maxWidth = '200px'; // Adjust image size if needed
+				preview.appendChild(img);
+			};
+			reader.readAsDataURL(files[0]);
+		}
+	}
 </script>
 
 <body>
@@ -48,8 +47,10 @@
 			<div>
 				<h3>Next Event:</h3>
 				<form id="eventForm">
-					<input type="text" id="eventDate" placeholder="Event Date (e.g., 18-19/11/2023)" />
-					<input type="text" id="eventLink" placeholder="Event Link" />
+          Event Date: 
+					<input type="text" id="eventDate" placeholder="18-19/11/2023" /><br>
+          Event Link:
+					<input type="text" id="eventLink" placeholder="https://url.com" />
 					<div class="page-buttons">
 						<button onclick="updateEvent()">Update Event</button>
 					</div>
@@ -103,8 +104,8 @@
 		text-align: left;
 		padding: 20px;
 		background-color: #fef3c7;
-    min-width: 18.5em;
-    max-width: 18.5em;
+		min-width: 18.5em;
+		max-width: 18.5em;
 	}
 
 	.bio {

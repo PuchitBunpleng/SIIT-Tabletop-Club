@@ -2,10 +2,11 @@
 	export let data;
 
 	let member = data?.member;
+  console.log(member)
 	let reservation = data?.reservation;
 	let row_num = 0;
 	if (reservation) {
-		let row_num = reservation.length;
+		row_num = reservation.length;
 	}
 </script>
 
@@ -26,7 +27,11 @@
 					<th>Time</th>
 					<th>Board Game</th>
 					<th>Edit</th>
-					<th>Delete</th>
+          {#if member?.core}
+					  <th>Delete</th>
+          {:else}
+            <th>Cancel</th>
+          {/if}
 				</tr>
 			</thead>
 			<!-- Table Body -->
@@ -46,7 +51,8 @@
 			</tbody>
 		</table>
 		<div class="reserve-buttons">
-			<button onclick="location.href='reservationadminadd.html'">Add</button>
+			<button onclick="location.href='/reserve/add'">Add</button>
+      <button onclick="location.href='/reserve/cancel'">View my cancellation</button>
 		</div>
 	</div>
 </body>
