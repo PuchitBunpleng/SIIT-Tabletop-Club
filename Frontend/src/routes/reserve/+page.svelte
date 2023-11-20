@@ -1,9 +1,9 @@
 <script>
 	export let data;
 
-  let member = data?.member
-  let reservation = data?.reservation
-  let row_num = reservation.length
+	let member = data?.member;
+	let reservation = data?.reservation;
+	let row_num = reservation.length;
 </script>
 
 <body>
@@ -28,18 +28,18 @@
 			</thead>
 			<!-- Table Body -->
 			<tbody>
-        {#if row_num}
-          {#each reservation as row (row.r_id)}
-            <tr>
-              <td>{row.r_id}</td>
-              <td>{row.r_date}</td>
-              <td>{row.r_time}</td>
-              <td>{row.r_b_name}</td>
-              <td>Edit</td>
-              <td>Delete</td>
-            </tr>
-          {/each}
-        {/if}
+				{#if row_num}
+					{#each reservation as row (row.r_id)}
+						<tr>
+							<td>{row.r_id}</td>
+							<td>{row.r_date}</td>
+							<td>{row.r_time}</td>
+							<td>{row.r_b_name}</td>
+							<td>Edit</td>
+							<td>Delete</td>
+						</tr>
+					{/each}
+				{/if}
 			</tbody>
 		</table>
 		<div class="reserve-buttons">
@@ -84,9 +84,9 @@
 		margin-top: 20px;
 	}
 
-  table tbody td {
-    background-color: #ffffff;
-  }
+	table tbody td {
+		background-color: #ffffff;
+	}
 
 	table,
 	th,

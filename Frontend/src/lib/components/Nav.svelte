@@ -8,8 +8,10 @@
 	let core = 0;
 
 	const fetchData = async () => {
-		let id = ''
-    userID.subscribe(val => { id = val })
+		let id = '';
+		userID.subscribe((val) => {
+			id = val;
+		});
 
 		if (id) {
 			try {

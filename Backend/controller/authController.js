@@ -11,7 +11,6 @@ let login = async (req, res) => {
             const core = result[0].core
             req.session.userID = userID
             req.session.core = core
-            console.log(req.session)
             return res.sendStatus(200)
         }
         else {

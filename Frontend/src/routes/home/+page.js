@@ -9,6 +9,6 @@ export async function load() {
     let data = (await api.get(`/member/${id}`)).data[0]
     return data
   } catch (err) {
-    throw error(500, err);
+    throw error(500, err.message);
   }
 }
