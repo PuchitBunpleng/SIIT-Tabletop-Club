@@ -1,17 +1,15 @@
 <script>
 	import api from '$lib/api.js';
-	import { userID } from '$lib/store.js';
 
 	export let data;
 
 	let member = data?.member;
+  console.log(data.boardgame)
 
-	let id = $userID;
-
-	let r_date = '';
-	let r_time = '';
-	let r_b_name = '';
-	let r_cancel = 0;
+	$: r_date = '';
+	$: r_time = '';
+	$: r_b_name = '';
+	$: r_cancel = 0;
 	let addReservation = () => {
 		api
 			.post('/reservation', {
@@ -22,9 +20,11 @@
 			})
 			.then((res) => {
 				console.log(res);
+        alert('Add successfully')
+        goto('/reserve');
 			})
 			.catch((err) => {
-				console.log(err.message);
+				console.log(err);
 			});
 	};
 </script>
@@ -38,13 +38,19 @@
 		<div class="page-form">
 			<img src="/images/edit.png" alt="Add a Reservation" class="page-image=" />
 			<label for="date">Date:</label>
-			<input type="date" id="date" name="date" />
+			<input bind:value={r_date} type="date" id="date" name="date" />
 
 			<label for="time">Time:</label>
-			<input type="time" id="time" name="time" />
+			<input bind:value={r_time} type="time" id="time" name="time" />
 
 			<label for="boardgame">Board Game:</label>
-			<input type="text" id="boardgame" name="boardgame" placeholder="Enter board game" />
+			<select bind:value={r_b_name}>
+        {#each data.boardgame as game}
+          <option value={game.b_name}>
+            {game.b_name}
+          </option>
+        {/each}
+      </select>
 
 			<div class="page-buttons">
 				<button type="button" onclick="goBack()">Back</button>
@@ -68,6 +74,7 @@
 	/* Content section */
 	.content {
 		margin: 30px;
+    padding-bottom: 8rem;
 	}
 	.page-form {
 		margin: auto;
@@ -88,22 +95,12 @@
 		color: #f59e0b;
 	}
 
-	.page-image {
-		width: 200px;
-		height: auto;
-	}
-
-	.page-inputs {
-		margin-bottom: 20px;
-		width: 500px;
-	}
-
 	label {
 		display: block;
 		margin-bottom: 5px;
 	}
 
-	input {
+	input, select {
 		width: 100%;
 		padding: 8px;
 		margin-bottom: 10px;
@@ -113,6 +110,7 @@
 	.page-buttons {
 		display: flex;
 		justify-content: center;
+    margin-top: 1rem;
 	}
 
 	button {

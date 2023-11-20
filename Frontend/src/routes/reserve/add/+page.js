@@ -7,8 +7,9 @@ export async function load() {
     userID.subscribe(val => { id = val })
     console.log(id)
     let member = (await api.get(`/member/${id}`)).data[0]
+    let boardgame = (await api.get('/boardgame')).data
     let reservation = (await api.get(`/reservation/member/${id}`)).data
-    return { member, reservation }
+    return { member, boardgame, reservation }
   } catch (err) {
     console.log(err)
   }
