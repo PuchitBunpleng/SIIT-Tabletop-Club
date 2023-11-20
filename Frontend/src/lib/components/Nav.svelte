@@ -1,34 +1,81 @@
 <script>
+	import { onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { userID } from '$lib/store.js';
+	import api from '$lib/api.js';
+	import AuthButton from './AuthButton.svelte';
+
+	let core = 0;
+
+	const fetchData = async () => {
+		let id = '';
+		userID.subscribe((val) => {
+			id = val;
+		});
+
+		if (id) {
+			try {
+				const response = await api.get(`/member/${id}`);
+				core = response?.data[0]?.core || 0;
+			} catch (error) {
+				console.log(error);
+			}
+		}
+	};
+
+	// Run fetchData on component mount
+	fetchData();
+
+	// Run fetchData every time the page store changes (routing changes)
+	const unsubscribe = page.subscribe(() => {
+		fetchData();
+	});
+
+	// Unsubscribe from the page store when the component is destroyed
+	onDestroy(() => {
+		unsubscribe();
+	});
 </script>
 
-{#if $page.url.pathname === '/'}
-	<nav>
-		<a href="/boardgame">Our Collections!</a>
-		{#if $userID}
-			<a href="/home">Home</a>
-			<a href="/logout" class="button">Log Out</a>
-		{:else}
-			<a href="/login" class="button">Login</a>
-		{/if}
-	</nav>
-{:else if $page.url.pathname === '/login'}
-	<nav />
-{:else}
-	<nav>
-		<div>
-			<a href="homepage.html">Home</a>
-			<a href="boardgamemember.html">Board Games</a>
-			<a href="reservationpage.html">Reservation</a>
-			<a href="recordpage.html">Record</a>
-		</div>
-		<div>
-			{$userID}
-			<a href="/logout" class="button">Log Out</a>
-		</div>
-	</nav>
-{/if}
+{#key core}
+	{#if $page.url.pathname === '/'}
+		<nav>
+			<div>
+				<a href="/boardgame">Our Collections!</a>
+				{#if $userID}
+					<a href="/home">Home</a>
+				{/if}
+			</div>
+			<div class="auth">
+				{#if $userID}
+					<p>ID: {$userID}</p>
+					<AuthButton path="/logout" text="Log out" />
+				{:else}
+					<AuthButton path="/login" text="Log in" />
+				{/if}
+			</div>
+		</nav>
+	{:else if $page.url.pathname === '/login'}
+		<nav />
+	{:else}
+		<nav>
+			<div>
+				<a href="/home">Home</a>
+				<a href="/boardgame">Board Games</a>
+				<a href="/reserve">Reservation</a>
+				<a href="/record">Record</a>
+				{#if core}
+					<a href="/event">Event Management</a>
+					<a href="/member">Member Management</a>
+				{/if}
+			</div>
+			<div class="auth">
+				<p>ID: {$userID}</p>
+				<AuthButton path="/logout" text="Log out" />
+			</div>
+		</nav>
+	{/if}
+{/key}
 
 <style>
 	nav {
@@ -38,7 +85,7 @@
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-		padding: 1rem 0.3rem;
+		padding: 0.8rem;
 	}
 
 	nav a {
@@ -47,14 +94,16 @@
 		margin: 0.8rem;
 	}
 
-	.button {
-		background: #9a3197;
-		border: none;
-		border-radius: 0.8rem;
-		padding: 0.6rem 1rem;
-		color: #fdf6fd;
+	.auth {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
 	}
-	.button:hover {
-		background: rgb(154, 49, 151, 0.5);
+
+	.auth p {
+		margin: 0 1.25rem;
+		color: #fdf6fd;
+		font-weight: 500;
 	}
 </style>

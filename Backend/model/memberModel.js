@@ -19,7 +19,7 @@ const pool = mysql.createPool({
 let getAll = async () => {
     const connection = await pool.getConnection()
     try {
-        const [rows, fields] = await connection.execute('SELECT * FROM `member`')
+        const [rows, fields] = await connection.execute('SELECT std_id, name, tel, curriculum, core FROM `member`')
         return rows
     } catch (err) {
         throw err
@@ -32,6 +32,19 @@ let getByID = async (std_id) => {
     const connection = await pool.getConnection()
     try {
         const query = 'SELECT * FROM `member` WHERE std_id = ?'
+        const [rows] = await connection.query(query, [std_id])
+        return rows
+    } catch (err) {
+        throw err
+    } finally {
+        connection.release()
+    }
+}
+
+let getByIDwithoutPass = async (std_id) => {
+    const connection = await pool.getConnection()
+    try {
+        const query = 'SELECT std_id, name, tel, curriculum, core FROM `member` WHERE std_id = ?'
         const [rows] = await connection.query(query, [std_id])
         return rows
     } catch (err) {
@@ -80,4 +93,4 @@ let deleteByID = async (std_id) => {
     }
 }
 
-export default { getAll, getByID, add, updateByID, deleteByID }
+export default { getAll, getByID, add, updateByID, deleteByID,getByIDwithoutPass }

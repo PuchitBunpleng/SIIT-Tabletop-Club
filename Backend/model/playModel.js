@@ -83,7 +83,7 @@ let add = async (std_id, b_name, date, start_time, end_time) => {
 let updateByID = async (std_id, b_name, date, start_time, end_time) => {
     const connection = await pool.getConnection()
     try {
-        const query = "UPDATE play SET start_time = ?, end_time = ? WHERE r_id = ? AND b_name = ? AND date = ?"
+        const query = "UPDATE play SET start_time = ?, end_time = ? WHERE std_id = ? AND b_name = ? AND date = ?"
         const [rows] = await connection.query(query, [start_time, end_time, std_id, b_name, date])
         return rows
     } catch (err) {

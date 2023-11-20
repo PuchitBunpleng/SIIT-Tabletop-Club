@@ -41,7 +41,7 @@ let getByDate = async (req, res) => {
 
 let post = async (req, res) => {
     try {
-        await playModel.add(req.body.std_id, req.body.b_name, req.body.date, req.body.start_time, req.body.end_time)
+        await playModel.add(req.params.id, req.body.b_name, req.body.date, req.body.start_time, req.body.end_time)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -50,7 +50,7 @@ let post = async (req, res) => {
 
 let put = async (req, res) => {
     try {
-        await playModel.updateByID(req.body.std_id, req.body.b_name, req.body.date, req.body.start_time, req.body.end_time)
+        await playModel.updateByID(req.params.id, req.body.b_name, req.body.date, req.body.start_time, req.body.end_time)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -60,7 +60,7 @@ let put = async (req, res) => {
 
 let del = async (req, res) => {
     try {
-        await playModel.deleteByID(req.body.std_id, req.body.b_name, req.body.date)
+        await playModel.deleteByID(req.params.id, req.body.b_name, req.body.date)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)

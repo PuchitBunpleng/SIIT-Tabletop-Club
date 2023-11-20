@@ -1,6 +1,6 @@
 <header>
 	<a href="/">
-		<img src="images/logo.jpg" alt="Logo" id="logo" />
+		<img src="/images/logo.jpg" alt="Logo" id="logo" />
 		<div id="header-text">
 			<h1>SIIT Tabletop Club</h1>
 		</div>

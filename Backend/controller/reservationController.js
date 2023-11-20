@@ -41,7 +41,7 @@ let getByGame = async (req, res) => {
 
 let post = async (req, res) => {
     try {
-        await reservationModel.add(req.body.r_id, req.body.r_date, req.body.r_time, req.body.r_std_id, req.body.r_b_name, req.body.r_cancel)
+        await reservationModel.add(req.body.r_date, req.body.r_time, req.params.id, req.body.r_b_name, req.body.r_cancel)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -50,7 +50,7 @@ let post = async (req, res) => {
 
 let put = async (req, res) => {
     try {
-        await reservationModel.updateByID(req.body.r_id, req.body.r_date, req.body.r_time, req.body.r_std_id, req.body.r_b_name, req.body.r_cancel)
+        await reservationModel.updateByID(req.body.r_id, req.body.r_date, req.body.r_time, req.params.id, req.body.r_b_name, req.body.r_cancel)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -60,7 +60,7 @@ let put = async (req, res) => {
 
 let del = async (req, res) => {
     try {
-        await reservationModel.deleteByID(req.params.id)
+        await reservationModel.deleteByID(req.params.id, req.body.r_id)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)

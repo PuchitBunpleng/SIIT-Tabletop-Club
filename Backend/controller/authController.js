@@ -9,7 +9,7 @@ let login = async (req, res) => {
         if (password === inputpass) {
             const userID = result[0].std_id
             const core = result[0].core
-            req.session.userID = userID
+            req.session.userID = userID.toString()
             req.session.core = core
             return res.sendStatus(200)
         }
@@ -17,7 +17,9 @@ let login = async (req, res) => {
             return res.status(403).json({message: "Incorrect password"})
         }
     } catch (err) {
-        return res.status(500).json(err.message)
+        if(err.message === 'Cannot read properties of undefined (reading \'password\')'){
+            return res.status(403).json({message: "Unknown user"})}
+        else{return res.status(500).json(err.message)}
     }
 }
 

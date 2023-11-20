@@ -1,32 +1,34 @@
 <script>
-	import axios from 'axios';
-	import { goto } from '$app/navigation';
-	import { userID } from '$lib/store.js';
+	import api from '$lib/api.js'
+	import { goto } from '$app/navigation'
+	import { userID } from '$lib/store.js'
 
-	let std_id = '';
-	let password = '';
+	let std_id = ''
+	let password = ''
+	let error = ''
 
 	let login = () => {
-		axios
-			.post('http://localhost:3000/login', {
+		api
+			.post('/login', {
 				std_id: std_id,
 				password: password
 			})
-			.then((res) => {
-				userID.set(std_id)
-				goto('/home')
+			.then(res => {
+				userID.set(std_id);
+				goto('/home');
 			})
-			.catch((err) => {
+			.catch(err => {
+				error = err.response.data.message;
 				console.log(err)
 			})
-	};
+	}
 </script>
 
 <body>
 	<div class="content">
 		<h1 class="login-text">Login</h1>
 		<div class="login-form">
-			<form>
+			<form on:submit|preventDefault={login}>
 				<img src="images/login.png" alt="Login" class="login-image" />
 				<div class="login-inputs">
 					<label for="std_id">Student ID:</label>
@@ -50,9 +52,12 @@
 
 				<div class="login-buttons">
 					<button type="button" onclick="goBack()">Back</button>
-					<button type="button" on:click={login}>Login</button>
+					<button type="submit">Login</button>
 				</div>
 			</form>
+      <div class="error">
+        {error}
+      </div>
 		</div>
 	</div>
 </body>
@@ -128,4 +133,13 @@
 		background-color: #9a3197;
 		color: #fff;
 	}
+
+  .error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0 0 0;
+    color: rgb(220, 20, 20);
+    font-weight: 600;
+  }
 </style>

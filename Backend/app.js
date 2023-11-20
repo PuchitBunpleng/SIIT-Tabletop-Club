@@ -17,18 +17,32 @@ import reservationController from './controller/reservationController.js'
 import playController from './controller/playController.js'
 import recordController from './controller/recordController.js'
 
+// Middleware
+import authMiddleware from './middleware/authMiddleware.js'
+import coreMiddleware from './middleware/coreMiddleware.js'
+import sameMiddleware from './middleware/sameMiddleware.js'
+
 const app = express()
 const port = 3000
 
-app.use(cors())
+const allowlist = ['http://localhost:5173']
+const corsOptionsDelegate = function (req, callback) {
+  let corsOptions;
+  if (allowlist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true, credentials: true } // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
+app.use(cors(corsOptionsDelegate))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(session({
     secret: 'SIIT Tabletop Club',
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-  }))
+    saveUninitialized: true
+}))
 
 app.get('/', (req, res) => { res.send("SIIT Tabletop Club Backend") })
 
@@ -37,87 +51,88 @@ app.post('/login', authController.login)
 app.post('/logout', authController.logout)
 
 // Members
-app.get('/member', memberController.getAll)
-app.get('/member/:id', memberController.get)
-app.post('/member', memberController.post)
-app.put('/member/:id', memberController.put)
-app.delete('/member/:id', memberController.del)
+app.get('/member', coreMiddleware.coreCheck, memberController.getAll)
+app.get('/member/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser, memberController.get)
+app.post('/member', coreMiddleware.coreCheck, memberController.post)
+app.put('/member/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser, memberController.put)
+app.delete('/member/:id', coreMiddleware.coreCheck, memberController.del)
 
 //Boardgame
 app.get('/boardgame', boardgameController.getAll)
 app.get('/boardgame/:id', boardgameController.get)
-app.post('/boardgame', boardgameController.post)
-app.put('/boardgame/:id', boardgameController.put)
-app.delete('/boardgame/:id', boardgameController.del)
+app.post('/boardgame', coreMiddleware.coreCheck, boardgameController.post)
+app.put('/boardgame/:id', coreMiddleware.coreCheck, boardgameController.put)
+app.delete('/boardgame/:id', coreMiddleware.coreCheck, boardgameController.del)
 
 //Event
 app.get('/event', eventController.getAll)
 app.get('/event/:id', eventController.get)
-app.post('/event', eventController.post)
-app.put('/event/:id', eventController.put)
-app.delete('/event/:id', eventController.del)
+app.post('/event', coreMiddleware.coreCheck, eventController.post)
+app.put('/event/:id', coreMiddleware.coreCheck, eventController.put)
+app.delete('/event/:id', coreMiddleware.coreCheck, eventController.del)
 
 //Participate
-app.get('/participate', participateController.getAll)
-app.get('/participate/:id', participateController.get)
-app.get('/participate/event/:id', participateController.getBye)
-app.post('/participate', participateController.post)
-app.delete('/participate', participateController.del)
+app.get('/participate', coreMiddleware.coreCheck,participateController.getAll)
+app.get('/participate/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,participateController.get)
+app.get('/participate/event/:id', authMiddleware.notLoggedIn,participateController.getBye)
+app.post('/participate', coreMiddleware.coreCheck,participateController.post)
+app.delete('/participate', coreMiddleware.coreCheck,participateController.del)
 
 // Person
-app.get('/person', personController.getAll)
-app.get('/person/:id', personController.get)
-app.post('/person', personController.post)
-app.put('/person/:id', personController.put)
-app.delete('/person/:id', personController.del)
+app.get('/person', coreMiddleware.coreCheck,personController.getAll)
+app.get('/person/:id', coreMiddleware.coreCheck,personController.get)
+app.post('/person', coreMiddleware.coreCheck,personController.post)
+app.put('/person/:id', coreMiddleware.coreCheck,personController.put)
+app.delete('/person/:id', coreMiddleware.coreCheck,personController.del)
 
 //Public Participate
-app.get('/public', publicController.getAll)
-app.get('/public/:id', publicController.get)
-app.get('/public/event/:id', publicController.getBye)
-app.post('/public', publicController.post)
-app.delete('/public', publicController.del)
+app.get('/public', coreMiddleware.coreCheck,publicController.getAll)
+app.get('/public/:id', coreMiddleware.coreCheck,publicController.get)
+app.get('/public/event/:id', authMiddleware.notLoggedIn,publicController.getBye)
+app.post('/public', coreMiddleware.coreCheck,publicController.post)
+app.delete('/public', coreMiddleware.coreCheck,publicController.del)
 
 //Activity
 app.get('/activity', activityController.getAll)
 app.get('/activity/:id', activityController.get)
-app.post('/activity', activityController.post)
-app.put('/activity/:id', activityController.put)
-app.delete('/activity/:id', activityController.del)
+app.post('/activity', coreMiddleware.coreCheck, activityController.post)
+app.put('/activity/:id', coreMiddleware.coreCheck, activityController.put)
+app.delete('/activity/:id', coreMiddleware.coreCheck, activityController.del)
 
 //Competition
 app.get('/competition', competitionController.getAll)
 app.get('/competition/:id', competitionController.get)
 app.get('/competition/game/:id', competitionController.getByGame)
-app.post('/competition', competitionController.post)
-app.delete('/competition', competitionController.del)
+app.post('/competition', coreMiddleware.coreCheck, competitionController.post)
+app.delete('/competition', coreMiddleware.coreCheck, competitionController.del)
 
 // Reservation
-app.get('/reservation', reservationController.getAll)
-app.get('/reservation/:id', reservationController.get)
-app.get('/reservation/member/:id', reservationController.getByStd)
-app.get('/reservation/game/:id', reservationController.getByGame)
-app.post('/reservation', reservationController.post)
-app.put('/reservation/:id', reservationController.put)
-app.delete('/reservation/:id', reservationController.del)
+app.get('/reservation', coreMiddleware.coreCheck, reservationController.getAll)
+app.get('/reservation/:id', coreMiddleware.coreCheck, reservationController.get)
+app.get('/reservation/member/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,reservationController.getByStd)
+app.get('/reservation/game/:id', authMiddleware.notLoggedIn,reservationController.getByGame)
+// params for put and delete use std_id
+app.post('/reservation/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,reservationController.post)
+app.put('/reservation/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,reservationController.put)
+app.delete('/reservation/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,reservationController.del)
 
 // Play
-app.get('/play', playController.getAll)
-app.get('/play/:id', playController.getByStd)
-app.get('/play/game/:id', playController.getByGame)
-app.get('/play/date/:id', playController.getByDate)
-app.post('/play', playController.post)
-app.put('/play', playController.put)
-app.delete('/play', playController.del)
+app.get('/play', authMiddleware.notLoggedIn,playController.getAll)
+app.get('/play/:id', authMiddleware.notLoggedIn,playController.getByStd)
+app.get('/play/game/:id', authMiddleware.notLoggedIn,playController.getByGame)
+app.get('/play/date/:id', authMiddleware.notLoggedIn,playController.getByDate)
+app.post('/play/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,playController.post)
+app.put('/play/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,playController.put)
+app.delete('/play/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,playController.del)
 
 // Record
-app.get('/record', recordController.getAll)
-app.get('/record/:id', recordController.getByStd)
-app.get('/record/game/:id', recordController.getByGame)
-app.get('/record/date/:id', recordController.getByDate)
-app.post('/record', recordController.post)
-app.put('/record', recordController.put)
-app.delete('/record', recordController.del)
+app.get('/record', authMiddleware.notLoggedIn,recordController.getAll)
+app.get('/record/:id', authMiddleware.notLoggedIn,recordController.getByStd)
+app.get('/record/game/:id',authMiddleware.notLoggedIn, recordController.getByGame)
+app.get('/record/date/:id', authMiddleware.notLoggedIn,recordController.getByDate)
+app.post('/record/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,recordController.post)
+app.put('/record/:id',authMiddleware.notLoggedIn,sameMiddleware.sameUser, recordController.put)
+app.delete('/record/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,recordController.del)
 
 app.use('*', (req, res) => { res.send("ERROR 404: Endpoint not found") })
 

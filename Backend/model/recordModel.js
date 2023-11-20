@@ -83,7 +83,7 @@ let add = async (std_id, b_name, date, winner, point) => {
 let updateByID = async (std_id, b_name, date, winner, point) => {
     const connection = await pool.getConnection()
     try {
-        const query = "UPDATE record SET winner = ?, point = ? WHERE r_id = ? AND b_name = ? AND date = ?"
+        const query = "UPDATE record SET winner = ?, point = ? WHERE std_id = ? AND b_name = ? AND date = ?"
         const [rows] = await connection.query(query, [winner, point, std_id, b_name, date])
         return rows
     } catch (err) {

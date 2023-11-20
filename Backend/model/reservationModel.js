@@ -67,11 +67,11 @@ let getByGameID = async (r_b_name) => {
     }
 }
 
-let add = async (r_id, r_date, r_time, r_std_id, r_b_name, r_cancel) => {
+let add = async (r_date, r_time, r_std_id, r_b_name, r_cancel) => {
     const connection = await pool.getConnection()
     try {
-        const query = "INSERT INTO reservation (r_id, r_date, r_time, r_std_id, r_b_name, r_cancel) VALUES (?, ?, ?, ?, ?, ?)"
-        const [rows] = await connection.query(query, [r_id, r_date, r_time, r_std_id, r_b_name, r_cancel])
+        const query = "INSERT INTO reservation (r_date, r_time, r_std_id, r_b_name, r_cancel) VALUES (?, ?, ?, ?, ?)"
+        const [rows] = await connection.query(query, [r_date, r_time, r_std_id, r_b_name, r_cancel])
         return rows
     } catch (err) {
         throw err
@@ -93,11 +93,11 @@ let updateByID = async (r_id, r_date, r_time, r_std_id, r_b_name, r_cancel) => {
     }
 }
 
-let deleteByID = async (r_id) => {
+let deleteByID = async (r_std_id,r_id) => {
     const connection = await pool.getConnection()
     try {
-        const query = 'DELETE FROM `reservation` where r_id = ?'
-        const [rows] = await connection.query(query, [r_id])
+        const query = 'DELETE FROM `reservation` where r_id = ? AND r_std_id = ?'
+        const [rows] = await connection.query(query, [r_id,r_std_id])
         return rows
     } catch (err) {
         throw err

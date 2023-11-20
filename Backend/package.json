@@ -14,7 +14,7 @@
     "dev": "supervisor app.js",
     "start": "node app.js"
   },
-  "author": "",
+  "author": "SIIT Tabletop Club",
   "license": "UNLICENSED",
   "description": "",
   "type": "module"

@@ -41,7 +41,7 @@ let getByDate = async (req, res) => {
 
 let post = async (req, res) => {
     try {
-        await recordModel.add(req.body.std_id, req.body.b_name, req.body.date, req.body.winner, req.body.point)
+        await recordModel.add(req.params.id, req.body.b_name, req.body.date, req.body.winner, req.body.point)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -50,7 +50,7 @@ let post = async (req, res) => {
 
 let put = async (req, res) => {
     try {
-        await recordModel.updateByID(req.body.std_id, req.body.b_name, req.body.date, req.body.winner, req.body.point)
+        await recordModel.updateByID(req.params.id, req.body.b_name, req.body.date, req.body.winner, req.body.point)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -60,7 +60,7 @@ let put = async (req, res) => {
 
 let del = async (req, res) => {
     try {
-        await recordModel.deleteByID(req.body.std_id, req.body.b_name, req.body.date)
+        await recordModel.deleteByID(req.params.id, req.body.b_name, req.body.date)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
