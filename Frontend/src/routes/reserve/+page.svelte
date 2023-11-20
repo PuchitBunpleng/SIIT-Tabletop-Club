@@ -3,7 +3,10 @@
 
 	let member = data?.member;
 	let reservation = data?.reservation;
-	let row_num = reservation.length;
+	let row_num = 0;
+	if (reservation) {
+		let row_num = reservation.length;
+	}
 </script>
 
 <body>

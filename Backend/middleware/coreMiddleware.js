@@ -1,6 +1,6 @@
 let coreCheck = (req, res, next) => {
-    if (!(req.session.core === 1)) {
-        return res.status(403).json({ message: "Forbidden" })
+    if (!req.session.core) {
+        return res.status(403).json({ message: "Not a core member" })
     }
     next()
 }
