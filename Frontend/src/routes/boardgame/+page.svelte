@@ -1,3 +1,20 @@
+<script>
+	import { onMount } from 'svelte';
+	import { getAllBoardGames } from './path/to/page.js';
+  
+	let boardGames = []; // Reactive variable to store fetched board games
+  
+	onMount(async () => {
+    try {
+      const data = await getAllBoardGames(); // Fetch board games from the backend
+      console.log('Fetched data:', data); // Log fetched data to the console for debugging
+      boardGames = data; // Update the reactive variable with the fetched data
+    } catch (error) {
+      console.error('Error fetching board games:', error); // Log any error to the console
+    }
+  	});
+  </script>
+
 <body>
 	<div class="content">
 		<p>{Mr.}{Firstname} {Surname}</p>
@@ -16,8 +33,8 @@
 			</tr>
 			<!-- Example row -->
 			<tr>
-				<td>Game 1</td>
-				<td>Description 1</td>
+				<td>{game.b_name}</td>
+          		<td>{game.description}</td>
 			</tr>
 		</table>
 	</div>
