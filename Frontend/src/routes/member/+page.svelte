@@ -1,7 +1,14 @@
+<script>
+	export let data;
+
+	let member = data?.member;
+    let row_num = member.length;
+</script>
+
 <body>
 
     <div class="content">
-        <p>{Mr.}{Firstname} {Surname}</p>
+        <h1>{member?.name}</h1>
         <h1 class="orange-text"><b>________________________</b></h1>
         <div class="search-bar">
             <h1 class="search-text">Member Management</h1>
@@ -15,14 +22,24 @@
                     <th>Student ID</th>
                     <th>Name</th>
                     <th>Tel No.</th>
-                    <th>Password</th>
                     <th>Curriculum</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
             </thead>
-            <tbody id="memberTableBody">
-                <!-- This part will be populated dynamically -->
+            <tbody>
+                {#if row_num}
+					{#each member as row (row.std_id)}
+						<tr>
+							<td>{row.std_id}</td>
+							<td>{row.name}</td>
+							<td>{row.tel}</td>
+							<td>{row.curriculum}</td>
+							<td>Edit</td>
+							<td>Delete</td>
+						</tr>
+					{/each}
+				{/if}
             </tbody>
         </table>
         <div class="page-buttons">
@@ -128,6 +145,11 @@ th, td {
     text-align: left;
     background-color: #FAF4EC;
 }
+
+table tbody td {
+		background-color: #ffffff;
+	}
+
 .page-buttons {
     display: flex;
     justify-content: center;
