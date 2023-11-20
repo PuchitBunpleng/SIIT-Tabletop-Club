@@ -10,6 +10,6 @@ export async function load() {
     let reservation = (await api.get(`/reservation/member/${id}`)).data
     return {member, reservation}
   } catch (err) {
-    throw error(500, err.message);
+    console.log(err.message);
   }
 }

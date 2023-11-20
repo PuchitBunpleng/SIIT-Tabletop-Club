@@ -7,8 +7,9 @@ export async function load() {
     let id = null
     userID.subscribe(val => { id = val })
     let data = (await api.get(`/member/${id}`)).data[0]
+    console.log(data)
     return data
   } catch (err) {
-    throw error(500, err.message);
+    console.log(err.message)
   }
 }
