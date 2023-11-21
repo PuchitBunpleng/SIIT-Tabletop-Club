@@ -19,7 +19,7 @@ let login = async (req, res) => {
         }
     } catch (err) {
         if(err.message === 'Cannot read properties of undefined (reading \'password\')'){
-            return res.status(403).json({message: "Unknown user"})}
+            return res.status(403).json({message: "User not found"})}
         else{return res.status(500).json(err.message)}
     }
 }

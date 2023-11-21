@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 21, 2023 at 05:57 AM
+-- Generation Time: Nov 21, 2023 at 07:02 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -415,35 +415,35 @@ ALTER TABLE `competition`
 -- Constraints for table `participate`
 --
 ALTER TABLE `participate`
-  ADD CONSTRAINT `participate_ibfk_1` FOREIGN KEY (`p_std_id`) REFERENCES `member` (`std_id`),
-  ADD CONSTRAINT `participate_ibfk_2` FOREIGN KEY (`p_e_name`) REFERENCES `event` (`e_name`);
+  ADD CONSTRAINT `participate_ibfk_1` FOREIGN KEY (`p_std_id`) REFERENCES `member` (`std_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `participate_ibfk_2` FOREIGN KEY (`p_e_name`) REFERENCES `event` (`e_name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `play`
 --
 ALTER TABLE `play`
-  ADD CONSTRAINT `play_ibfk_1` FOREIGN KEY (`std_id`) REFERENCES `member` (`std_id`),
-  ADD CONSTRAINT `play_ibfk_2` FOREIGN KEY (`b_name`) REFERENCES `boardgame` (`b_name`);
+  ADD CONSTRAINT `play_ibfk_1` FOREIGN KEY (`std_id`) REFERENCES `member` (`std_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `play_ibfk_2` FOREIGN KEY (`b_name`) REFERENCES `boardgame` (`b_name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `public_participate`
 --
 ALTER TABLE `public_participate`
-  ADD CONSTRAINT `public_participate_ibfk_1` FOREIGN KEY (`pp_person_id`) REFERENCES `person` (`person_id`),
-  ADD CONSTRAINT `public_participate_ibfk_2` FOREIGN KEY (`pp_e_name`) REFERENCES `event` (`e_name`);
+  ADD CONSTRAINT `public_participate_ibfk_1` FOREIGN KEY (`pp_person_id`) REFERENCES `person` (`person_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `public_participate_ibfk_2` FOREIGN KEY (`pp_e_name`) REFERENCES `event` (`e_name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `record`
 --
 ALTER TABLE `record`
-  ADD CONSTRAINT `FK_RecordPlay` FOREIGN KEY (`record_id`) REFERENCES `play` (`play_id`);
+  ADD CONSTRAINT `FK_RecordPlay` FOREIGN KEY (`record_id`) REFERENCES `play` (`play_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`r_std_id`) REFERENCES `member` (`std_id`),
-  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`r_b_name`) REFERENCES `boardgame` (`b_name`);
+  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`r_std_id`) REFERENCES `member` (`std_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`r_b_name`) REFERENCES `boardgame` (`b_name`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
