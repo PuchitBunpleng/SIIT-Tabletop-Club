@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 21, 2023 at 02:34 AM
+-- Generation Time: Nov 21, 2023 at 03:43 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -295,7 +295,8 @@ INSERT INTO `reservation` (`r_id`, `r_date`, `r_time`, `r_std_id`, `r_b_name`, `
 (2, '2023-11-21', '18:00:00', 6422000001, 'China town', 0),
 (3, '2023-11-23', '18:00:00', 6422000003, 'Root', 1),
 (4, '2023-11-20', '16:30:00', 6422000004, 'Agricola', 0),
-(5, '2023-11-21', '18:00:00', 6422000001, 'China town', 0);
+(5, '2023-11-21', '18:00:00', 6422000001, 'China town', 0),
+(6, '2023-11-22', '10:26:00', 6422000000, '7 Wonders: Architects', 0);
 
 --
 -- Indexes for dumped tables
@@ -391,7 +392,7 @@ ALTER TABLE `record`
 -- AUTO_INCREMENT for table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -434,7 +435,7 @@ ALTER TABLE `public_participate`
 -- Constraints for table `record`
 --
 ALTER TABLE `record`
-  ADD CONSTRAINT `FK_RecordPlay` FOREIGN KEY (`std_id`,`b_name`,`date`) REFERENCES `play` (`std_id`, `b_name`, `date`);
+  ADD CONSTRAINT `FK_RecordPlay` FOREIGN KEY (`std_id`,`b_name`,`date`) REFERENCES `play` (`std_id`, `b_name`, `date`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `reservation`
