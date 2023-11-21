@@ -30,7 +30,7 @@
 			<div class="title-text"><h1>News Topic</h1></div>
 			<p>
 				1. TYBC Thailand Youth Boardgame Championship (Nov. 18(Sat)-19(Sun), 2023)
-				<button class="page-button">Apply</button>
+				<!-- <button class="page-button">Apply</button> -->
 			</p>
 			<p>
 				<a

@@ -94,7 +94,8 @@
 						<tr>
 							<td>{row.pp_person_id}</td>
 							<td><button on:click={() => {
-                                api.delete(`/public/${row.e_name}`).then(res => {
+                                let ppp_person_id = row.pp_person_id
+                                api.post(`/public/delete`,{pp_person_id: ppp_person_id,pp_e_name}).then(res => {
                                   alert("Delete successfully")
                                   location.reload(true);
                                 }).catch(err => {

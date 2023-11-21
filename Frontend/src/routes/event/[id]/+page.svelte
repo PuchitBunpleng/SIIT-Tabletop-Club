@@ -9,7 +9,7 @@
     console.log(member?.name)
   $: e_name = data.e_name;
   let event = data?.event;
-	$: date= event?.date;
+	let date= ((event?.date).split("T"))[0];
 	$: time = event?.time;
 	$: open_for_public = event?.open_for_public;
 

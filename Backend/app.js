@@ -90,7 +90,7 @@ app.get('/public', coreMiddleware.coreCheck,publicController.getAll)
 app.get('/public/:id', coreMiddleware.coreCheck,publicController.get)
 app.get('/public/event/:id', authMiddleware.notLoggedIn,publicController.getBye)
 app.post('/public', coreMiddleware.coreCheck,publicController.post)
-app.delete('/public', coreMiddleware.coreCheck,publicController.del)
+app.post('/public/delete', coreMiddleware.coreCheck,publicController.del)
 
 //Activity
 app.get('/activity', activityController.getAll)

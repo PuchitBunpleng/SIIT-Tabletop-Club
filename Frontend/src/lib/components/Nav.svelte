@@ -2,7 +2,7 @@
 	import { onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { userID } from '$lib/store.js';
-	import { goto } from '$app/navigation'
+	import { goto } from '$app/navigation';
 	import api from '$lib/api.js';
 	import AuthButton from './AuthButton.svelte';
 
@@ -22,10 +22,10 @@
 				core = response?.data[0]?.core || 0;
 			} catch (err) {
 				let error = err.response.status;
-				console.log(error)
+				console.log(error);
 				if (error === 403) {
-					userID.set('')
-					goto('/login')
+					userID.set('');
+					goto('/login');
 				}
 			}
 		} else {
@@ -67,6 +67,23 @@
 		</nav>
 	{:else if $page.url.pathname === '/login'}
 		<nav />
+	{:else if $page.url.pathname === '/boardgame' && !UID}
+		<nav>
+			<div>
+				<a href="/boardgame">Our Collections!</a>
+				{#if UID}
+					<a href="/home">Home</a>
+				{/if}
+			</div>
+			<div class="auth">
+				{#if UID}
+					<p>ID: {UID}</p>
+					<AuthButton path="/logout" text="Log out" />
+				{:else}
+					<AuthButton path="/login" text="Log in" />
+				{/if}
+			</div>
+		</nav>
 	{:else}
 		<nav>
 			<div>

@@ -37,7 +37,7 @@
 					{#each event as row (row.e_name)}
 						<tr>
 							<td>{row.e_name}</td>
-							<td>{row.date}</td>
+							<td>{(row.date.split("T"))[0]}</td>
 							<td>{row.time}</td>
 							<td>{row.open_for_public}</td>
                             <td><a href="/event/part/{row.e_name}">Participations</a></td>
