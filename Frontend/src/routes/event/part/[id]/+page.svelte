@@ -4,6 +4,7 @@
 	export let data;
 
     $: p_e_name = data.e_name
+    $: pp_e_name = data.e_name
     let participate = data?.participate;
     let row_num = 0;
     if(participate){row_num = participate.length}
@@ -13,12 +14,32 @@
     let member = data?.member;
    let memberall = data?.memberall
     $: p_std_id = memberall?.std_id;
+    let personall = data?.memberall
+    $: pp_person_id = personall?.person_id;
+    let event = data?.event
+    let open_public = 0
+    if(event){ open_public = event.open_for_public}
     console.log("check")
 
     let addPart = () => {
 		api
 			.post(`/participate`, {
         p_std_id,p_e_name
+			})
+			.then((res) => {
+				console.log(res);
+        alert('Add successfully')
+        location.reload(true);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
+    let addPubPart = () => {
+		api
+			.post(`/public`, {
+        pp_person_id,pp_e_name
 			})
 			.then((res) => {
 				console.log(res);
@@ -83,7 +104,7 @@
             </tbody>
         </table>
 
-        <label for="part">Add participation:</label>
+        <label for="part">Add member participation:</label>
 			<select bind:value={p_std_id }>
                 {#if memberall}
 				{#each data.memberall as member}
@@ -94,6 +115,19 @@
                 {/if}
 			</select>
         <button type="submit" on:click={addPart}>Add</button>
+        {#if open_public}
+        <label for="part">Add public participation:</label>
+			<select bind:value={pp_person_id }>
+                {#if personall}
+				{#each data.personall as person}
+					<option value={person.person_id}>
+						{person.person_id }
+					</option>
+				{/each}
+                {/if}
+			</select>
+        <button type="submit" on:click={addPubPart}>Add</button>
+        {/if}
 
         <div class="page-buttons">
             <button type="button" on:click={()=>{goto('/event')}}>Back</button>
