@@ -50,6 +50,7 @@
 				console.log(err);
 			});
 	};
+    
 </script>
 
 <body>
@@ -76,8 +77,10 @@
 						<tr>
 							<td>{row.p_std_id}</td>
 							<td><button on:click={() => {
-                                api.delete(`/event/${row.e_name}`).then(res => {
+                                let ppp_std_id = row.p_std_id
+                                api.post(`/participate/delete`,{p_std_id: ppp_std_id,p_e_name}).then(res => {
                                   alert("Delete successfully")
+                                  console.log(res)
                                   location.reload(true);
                                 }).catch(err => {
                                   console.log(err)
@@ -91,7 +94,7 @@
 						<tr>
 							<td>{row.pp_person_id}</td>
 							<td><button on:click={() => {
-                                api.delete(`/event/${row.e_name}`).then(res => {
+                                api.delete(`/public/${row.e_name}`).then(res => {
                                   alert("Delete successfully")
                                   location.reload(true);
                                 }).catch(err => {

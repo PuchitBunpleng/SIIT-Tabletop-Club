@@ -76,7 +76,7 @@ app.get('/participate', coreMiddleware.coreCheck,participateController.getAll)
 app.get('/participate/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,participateController.get)
 app.get('/participate/event/:id', authMiddleware.notLoggedIn,participateController.getBye)
 app.post('/participate', coreMiddleware.coreCheck,participateController.post)
-app.delete('/participate', coreMiddleware.coreCheck,participateController.del)
+app.post('/participate/delete', coreMiddleware.coreCheck,participateController.del)
 
 // Person
 app.get('/person', coreMiddleware.coreCheck,personController.getAll)

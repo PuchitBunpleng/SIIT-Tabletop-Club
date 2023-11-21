@@ -40,6 +40,7 @@ let post = async (req, res) => {
 
 let del = async (req, res) => {
     try {
+        console.log(req.body)
         await participateModel.deleteByID(req.body.p_std_id, req.body.p_e_name)
         return res.sendStatus(200)
     } catch (err) {

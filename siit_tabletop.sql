@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 21, 2023 at 03:43 AM
+-- Generation Time: Nov 21, 2023 at 05:57 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -20,9 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `siit_tabletop`
 --
-DROP DATABASE IF EXISTS `siit_tabletop`;
-CREATE DATABASE `siit_tabletop`;
-USE `siit_tabletop`;
 
 -- --------------------------------------------------------
 
@@ -134,16 +131,16 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`std_id`, `name`, `tel`, `password`, `curriculum`, `core`) VALUES
-(6422000000, 'Maddox Williams', '0922901230', 'MaddoxInwza', 'cpe', 1),
-(6422000001, 'Caden Houghton', '0684421123', 'gogogoCaden', 'ee', 1),
-(6422000002, 'Kiran Murphy', '0983453334', '1212312121', 'de', 1),
-(6422000003, 'Lynn Wilson', '0884836109', 'battleCONisthebest', 'ie', 0),
-(6422000004, 'Cameron Davis', '0939555545', 'root_oh_root', 'cpe', 0),
-(6422000005, 'Denny Hayes', '0728713324', 'sasageyo', 'de', 0),
-(6422000006, 'Harley Wright', '0667867784', 'Wright_now', 'cpe', 0),
-(6422000007, 'Hayden Hopkins', '0999299999', '999999q9999', 'ee', 0),
-(6422000008, 'Franky Jackson', '0954728375', 'jop94jfjuejkf', 'che', 0),
-(6422000009, 'Elliot White', '0902618452', 'e333rreff4tfr', 'me', 0);
+(6422000000, 'Maddox Williams', '0922901230', '$2b$10$tlz9ZA66wFEQaj.4CAE6sOu7HpFuLGDrn4Unrj/3I9k1kN7vkUDVC', 'cpe', 1),
+(6422000001, 'Caden Houghton', '0684421123', '$2b$10$BpDiwKJmPuOub7GuhcrBBOjgdXIWIWlbi2eua5bdnseSN/fSKKOLW', 'ee', 1),
+(6422000002, 'Kiran Murphy', '0983453334', '$2b$10$m.Q3fSvi1TnNTUusJi2G2OXUgydMt0eDI24w6/0/EwHfenP4/iTeu', 'de', 1),
+(6422000003, 'Lynn Wilson', '0884836109', '$2b$10$.gwh234A99j2sTPaTbZDLuJFTOrvihgyhrppTkNcYS2N5kWcMh42a', 'ie', 0),
+(6422000004, 'Cameron Davis', '0939555545', '$2b$10$nK0isme6voWaa2js.lQfnuQ41boPirvrHZeUMSOri/UCfx0OumqwC', 'cpe', 0),
+(6422000005, 'Denny Hayes', '0728713324', '$2b$10$15xTRQKDjif9xUJTEtuxsOD4SukS3.QtBUdXkESVndbyStVhPiKA.', 'de', 0),
+(6422000006, 'Harley Wright', '0667867784', '$2b$10$7E7EeR0VfZi48ECG.G/eT.c70155esH36rN.TQK2kFRCElrpFBVaS', 'cpe', 0),
+(6422000007, 'Hayden Hopkins', '0999299999', '$2b$10$zXIAXur7OlUDdLCMb8Mzl.YhOo3Mm.ve9eBNXOucJzvUiM.2A4Jze', 'ee', 0),
+(6422000008, 'Franky Jackson', '0954728375', '$2b$10$.R/yCkqtrWoJxmF/BpBlNuHvZ3yXgu/PpLZXCPW6ZCOXZpo3lfo0K', 'che', 0),
+(6422000009, 'Elliot White', '0902618452', '$2b$10$BtBegvMAl6phJIjgp.N4Mebppkqf60XDPxpc39g1g/L02Z05ogcju', 'me', 0);
 
 -- --------------------------------------------------------
 
@@ -206,7 +203,7 @@ INSERT INTO `person` (`person_id`, `name`, `tel`, `curriculum`) VALUES
 --
 
 CREATE TABLE `play` (
-  `play_id` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  `play_id` int(11) NOT NULL,
   `std_id` bigint(10) NOT NULL,
   `b_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` date NOT NULL,
@@ -218,17 +215,17 @@ CREATE TABLE `play` (
 -- Dumping data for table `play`
 --
 
-INSERT INTO `play` (`std_id`, `b_name`, `date`, `start_time`, `end_time`) VALUES
-(6422000001, '7 Wonders: Architects', '2023-11-10', '11:01:33', '12:05:44'),
-(6422000001, 'Agricola', '2023-11-11', '17:00:55', '19:23:34'),
-(6422000001, 'Agricola', '2023-11-15', '17:53:44', '19:45:26'),
-(6422000001, 'Root', '2023-11-16', '17:04:56', '18:55:37'),
-(6422000005, 'Pictures', '2023-11-13', '16:10:24', '16:43:22'),
-(6422000006, 'Terraforming Mars: Ares Expedition', '2023-11-19', '16:34:29', '18:31:56'),
-(6422000007, 'BattleCON Devastation of Indines', '2023-11-13', '16:30:23', '17:05:44'),
-(6422000007, 'Splendor', '2023-11-15', '18:43:44', '18:59:59'),
-(6422000008, 'Terraforming Mars: Ares Expedition', '2023-11-20', '18:00:03', '20:12:33'),
-(6422000009, 'Splendor', '2023-11-15', '18:02:33', '18:35:23');
+INSERT INTO `play` (`play_id`, `std_id`, `b_name`, `date`, `start_time`, `end_time`) VALUES
+(1, 6422000001, '7 Wonders: Architects', '2023-11-10', '11:01:33', '12:05:44'),
+(2, 6422000001, 'Agricola', '2023-11-11', '17:00:55', '19:23:34'),
+(3, 6422000001, 'Agricola', '2023-11-15', '17:53:44', '19:45:26'),
+(4, 6422000001, 'Root', '2023-11-16', '17:04:56', '18:55:37'),
+(5, 6422000005, 'Pictures', '2023-11-13', '16:10:24', '16:43:22'),
+(6, 6422000006, 'Terraforming Mars: Ares Expedition', '2023-11-19', '16:34:29', '18:31:56'),
+(7, 6422000007, 'BattleCON Devastation of Indines', '2023-11-13', '16:30:23', '17:05:44'),
+(8, 6422000007, 'Splendor', '2023-11-15', '18:43:44', '18:59:59'),
+(9, 6422000008, 'Terraforming Mars: Ares Expedition', '2023-11-20', '18:00:03', '20:12:33'),
+(10, 6422000009, 'Splendor', '2023-11-15', '18:02:33', '18:35:23');
 
 -- --------------------------------------------------------
 
@@ -266,7 +263,7 @@ CREATE TABLE `record` (
 -- Dumping data for table `record`
 --
 
-INSERT INTO `record` (`record_id`, `winner`, `point`)  VALUES
+INSERT INTO `record` (`record_id`, `winner`, `point`) VALUES
 (1, 'Maddox', ''),
 (2, 'Kiran', ''),
 (3, 'Harley', ''),
@@ -348,6 +345,14 @@ ALTER TABLE `person`
   ADD PRIMARY KEY (`person_id`);
 
 --
+-- Indexes for table `play`
+--
+ALTER TABLE `play`
+  ADD PRIMARY KEY (`play_id`),
+  ADD KEY `play_ibfk_1` (`std_id`),
+  ADD KEY `play_ibfk_2` (`b_name`);
+
+--
 -- Indexes for table `public_participate`
 --
 ALTER TABLE `public_participate`
@@ -371,6 +376,12 @@ ALTER TABLE `reservation`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `play`
+--
+ALTER TABLE `play`
+  MODIFY `play_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `record`
