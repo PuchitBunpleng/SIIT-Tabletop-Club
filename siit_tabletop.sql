@@ -20,6 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `siit_tabletop`
 --
+DROP DATABASE IF EXISTS `siit_tabletop`;
+CREATE DATABASE `siit_tabletop`;
+USE `siit_tabletop`;
 
 -- --------------------------------------------------------
 
@@ -203,6 +206,7 @@ INSERT INTO `person` (`person_id`, `name`, `tel`, `curriculum`) VALUES
 --
 
 CREATE TABLE `play` (
+  `play_id` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
   `std_id` bigint(10) NOT NULL,
   `b_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` date NOT NULL,
@@ -253,23 +257,20 @@ INSERT INTO `public_participate` (`pp_e_name`, `pp_person_id`) VALUES
 --
 
 CREATE TABLE `record` (
-  `std_id` bigint(10) NOT NULL,
-  `b_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` date NOT NULL,
+  `record_id` int(11) NOT NULL,
   `winner` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `point` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `record_id` int(11) NOT NULL
+  `point` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `record`
 --
 
-INSERT INTO `record` (`std_id`, `b_name`, `date`, `winner`, `point`, `record_id`) VALUES
-(6422000001, 'Agricola', '2023-11-11', 'Maddox', '', 1),
-(6422000001, 'Root', '2023-11-16', 'Kiran', '', 2),
-(6422000006, 'Terraforming Mars: Ares Expedition', '2023-11-19', 'Harley', '', 3),
-(6422000007, 'Splendor', '2023-11-15', 'Denny', '', 4);
+INSERT INTO `record` (`record_id`, `winner`, `point`)  VALUES
+(1, 'Maddox', ''),
+(2, 'Kiran', ''),
+(3, 'Harley', ''),
+(4, 'Denny', '');
 
 -- --------------------------------------------------------
 
@@ -347,16 +348,6 @@ ALTER TABLE `person`
   ADD PRIMARY KEY (`person_id`);
 
 --
--- Indexes for table `play`
---
-ALTER TABLE `play`
-  ADD PRIMARY KEY (`std_id`,`b_name`,`date`),
-  ADD KEY `date` (`date`),
-  ADD KEY `b_name` (`b_name`),
-  ADD KEY `std_id` (`std_id`),
-  ADD KEY `std_id_2` (`std_id`,`b_name`,`date`);
-
---
 -- Indexes for table `public_participate`
 --
 ALTER TABLE `public_participate`
@@ -367,8 +358,7 @@ ALTER TABLE `public_participate`
 -- Indexes for table `record`
 --
 ALTER TABLE `record`
-  ADD PRIMARY KEY (`record_id`),
-  ADD KEY `std_id` (`std_id`,`b_name`,`date`);
+  ADD PRIMARY KEY (`record_id`);
 
 --
 -- Indexes for table `reservation`
@@ -435,7 +425,7 @@ ALTER TABLE `public_participate`
 -- Constraints for table `record`
 --
 ALTER TABLE `record`
-  ADD CONSTRAINT `FK_RecordPlay` FOREIGN KEY (`std_id`,`b_name`,`date`) REFERENCES `play` (`std_id`, `b_name`, `date`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_RecordPlay` FOREIGN KEY (`record_id`) REFERENCES `play` (`play_id`);
 
 --
 -- Constraints for table `reservation`
