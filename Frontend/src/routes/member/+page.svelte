@@ -46,6 +46,7 @@
                     <th>Name</th>
                     <th>Tel No.</th>
                     <th>Curriculum</th>
+                    <th>Core</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -58,6 +59,7 @@
 							<td>{row.name}</td>
 							<td>{row.tel}</td>
 							<td>{row.curriculum}</td>
+                            <td>{row.core}</td>
 							<td><a href="/member/{row.std_id}"><img src="/images/editicon.png" alt="edit" width="25rem"></a></td>
 							<td><button on:click={() => {
                                 api.delete(`/member/${row.std_id}`).then(res => {
