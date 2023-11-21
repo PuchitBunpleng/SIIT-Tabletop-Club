@@ -6,6 +6,7 @@
     let row_num = 0;
     if(event){row_num = event.length}
     let member = data?.member;
+    console.log(row_num)
 </script>
 
 <body>
@@ -53,46 +54,9 @@
             </tbody>
         </table>
         <div class="page-buttons">
-            <button onclick="location.href='eventadd.html'">Add</button>
+            <button onclick="location.href='/event/add'">Add</button>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function populateTable() {
-            let events = JSON.parse(localStorage.getItem('events')) || [];
-            let tableBody = $('#eventTableBody');
-            tableBody.empty();
-
-            events.forEach(event => {
-                let newRow = `<tr>
-                                <td>${event.name}</td>
-                                <td>${event.topic}</td>
-                                <td>${event.date}</td>
-                                <td>${event.time}</td>
-                                <td>${event.type}</td>
-                                <td>${event.openForPublic ? 'Yes' : 'No'}</td>
-                                <td><a href="eventedit.html" class="edit-button">Edit</a></td>
-                                <td><a href="#" class="delete-button" onclick="return confirm('Are you sure you want to delete this event?')">Delete</a></td>
-                            </tr>`;
-                tableBody.append(newRow);
-            });
-        }
-
-        $(document).ready(function () {
-            populateTable();
-
-            $(document).on('click', '.edit-button', function () {
-                // Code to allow editing of the respective row
-                // You might display input fields in place of text or implement a modal for editing
-            });
-
-            $(document).on('click', '.delete-button', function() {
-                $(this).closest('tr').remove(); // Removes the closest row containing the delete button
-                // You might want to include backend calls here to delete from a database
-            });
-        });
-    </script>
 
 </body>
 

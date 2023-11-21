@@ -57,7 +57,7 @@ let add = async (e_name, date, time, open_for_public) => {
 let updateByID = async (e_name, date, time, open_for_public) => {
     const connection = await pool.getConnection()
     try {
-        const query = "UPDATE event SET e_name = ?, date = ?, time = ?, open_for_public = ?, WHERE e_name = ?"
+        const query = "UPDATE event SET e_name = ?, date = ?, time = ?, open_for_public = ? WHERE e_name = ?"
         const [rows] = await connection.query(query, [e_name, date, time, open_for_public, e_name])
         return rows
     } catch (err) {

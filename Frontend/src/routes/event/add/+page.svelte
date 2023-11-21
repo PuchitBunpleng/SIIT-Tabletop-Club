@@ -7,21 +7,21 @@
 	let member = data?.member;
 
 
-	let std_id = 0;
-	let name = '';
-	let tel = '';
-	let password = '';
-    let curriculum = '';
-	let core = 0;
-	let addMember = () => {
+
+	let e_name = '';
+    let date = '';
+	let time = '';
+	let open_for_public = 0;
+
+	let addEvent = () => {
 		api
-			.post('/member', {
-				std_id,  name,  tel,  password, curriculum, core
+			.post('/event', {
+				e_name ,date,time ,open_for_public
 			})
 			.then((res) => {
 				console.log(res);
             alert('Add successfully')
-            goto('/member');
+            goto('/event');
 			})
             
 			.catch((err) => {
@@ -35,32 +35,26 @@
 		<!-- Your content -->
 		<h1>{member?.name}</h1>
 		<h1 class="orange-text"><b>________________________</b></h1>
-		<h1 class="page-text">Add a member</h1>
+		<h1 class="page-text">Add an event</h1>
 		<div class="page-form">
-			<img src="/images/edit.png" alt="Add a Member" class="page-image=" />
+			<img src="/images/edit.png" alt="Add an Event" class="page-image=" />
 
-            <label for="std_id">Student ID:</label>
-			<input bind:value={std_id} type="text" id="std_id" name="std_id" placeholder="Enter student ID" />
+            <label for="e_name">Event name:</label>
+			<input bind:value={e_name} type="text" id="e_name" name="e_name" placeholder="Enter event name" />
 
-            <label for="name">Name:</label>
-			<input bind:value={name} type="text" id="name" name="name" placeholder="Enter name" />
+            <label for="date">Date:</label>
+			<input bind:value={date} type="date" id="date" name="date" placeholder="Enter date" />
 
-			<label for="tel">Tel:</label>
-			<input bind:value={tel} type="text" id="tel" name="Enter telephone number" />
+			<label for="time ">Time:</label>
+			<input bind:value={time } type="time " id="time " name="Enter time " />
 
-			<label for="password">Password:</label>
-			<input bind:value={password} type="password" id="password" name="Enter password" />
-
-			<label for="curriculum">Curriculum:</label>
-			<input bind:value={curriculum} type="text" id="curriculum" name="curriculum" placeholder="Enter curriculum" />
-
-            <label for="core">Type of member:</label>
-			<input bind:value={core} type="text" id="core" name="core" placeholder="1 for core member, 0 for normal member" />
+			<label for="open_for_public">Open for public:</label>
+			<input bind:value={open_for_public} type="text" id="open_for_public" name="0 for private, 1 for public" />
               
 
 			<div class="page-buttons">
-				<button type="button" on:click={()=>{goto('/member')}}>Back</button>
-				<button type="button" on:click={addMember}>Add</button>
+				<button type="button" on:click={()=>{goto('/event')}}>Back</button>
+				<button type="button" on:click={addEvent}>Add</button>
 			</div>
 		</div>
 	</div>
