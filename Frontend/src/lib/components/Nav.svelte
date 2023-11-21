@@ -22,8 +22,10 @@
 				core = response?.data[0]?.core || 0;
 			} catch (err) {
 				let error = err.response.status;
+				console.log(error)
 				if (error === 403) {
-					goto('/logout');
+					userID.set('')
+					goto('/login')
 				}
 			}
 		} else {

@@ -15,6 +15,6 @@ export function load() {
         console.log(err)
       })
   } catch (err) {
-    throw error(404, 'Not found');
+    console.log(err)
   }
 }

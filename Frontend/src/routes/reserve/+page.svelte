@@ -1,5 +1,5 @@
 <script>
-  import api from '$lib/api.js'
+	import api from '$lib/api.js';
 
 	export let data;
 
@@ -28,11 +28,11 @@
 					<th>Time</th>
 					<th>Board Game</th>
 					<th>Edit</th>
-          {#if member?.core}
-					  <th>Delete</th>
-          {:else}
-            <th>Cancel</th>
-          {/if}
+					{#if member?.core}
+						<th>Delete</th>
+					{:else}
+						<th>Cancel</th>
+					{/if}
 				</tr>
 			</thead>
 			<!-- Table Body -->
@@ -41,18 +41,56 @@
 					{#each reservation as row (row.r_id)}
 						<tr>
 							<td>{row.r_id}</td>
-							<td>{row.r_date}</td>
+							<td>{row.r_date.split('T')[0]}</td>
 							<td>{row.r_time}</td>
 							<td>{row.r_b_name}</td>
-							<td><a href="/reserve/{row.r_id}"><img src="/images/editicon.png" alt="edit" width="25rem"></a></td>
-							<td><button on:click={() => {
-                api.delete(`/reservation/${row.r_id}`).then(res => {
-                  alert("Delete successfully")
-                  location.reload(true);
-                }).catch(err => {
-                  console.log(err)
-                })
-              }} id="delete"><img src="/images/delete.png" alt="delete" width="25rem"></button></td>
+							<td>
+								<a href="/reserve/{row.r_id}">
+									<img src="/images/editicon.png" alt="edit" width="25rem" />
+								</a>
+							</td>
+							<td>
+								{#if member?.core}
+									<button
+										on:click={() => {
+											api
+												.delete(`/reservation/${row.r_id}`)
+												.then((res) => {
+													alert('Delete successfully');
+													location.reload(true);
+												})
+												.catch((err) => {
+													console.log(err);
+												});
+										}}
+										id="delete"
+										><img src="/images/delete.png" alt="delete" width="25rem" />
+									</button>
+								{:else if !row.r_cancel}
+									<button
+										on:click={() => {
+											api
+												.put(`/reservation/${row.r_id}`, {
+													r_id: row.r_id,
+													r_date: row.r_date.split('T')[0],
+													r_time: row.r_time,
+													r_b_name: row.r_b_name,
+													r_cancel: 1
+												})
+												.then((res) => {
+													console.log(res);
+													alert('Pending cancellation');
+													location.reload(true);
+												})
+												.catch((err) => {
+													console.log(err);
+												});
+										}}>Cancel</button
+									>
+								{:else}
+									<button disabled>Pending...</button>
+								{/if}
+							</td>
 						</tr>
 					{/each}
 				{/if}
@@ -60,7 +98,7 @@
 		</table>
 		<div class="reserve-buttons">
 			<button onclick="location.href='/reserve/add'">Add</button>
-      <!-- <button onclick="location.href='/reserve/cancel'">View my cancellation</button> -->
+			<!-- <button onclick="location.href='/reserve/cancel'">View my cancellation</button> -->
 		</div>
 	</div>
 </body>
@@ -138,9 +176,9 @@
 		color: #fff;
 	}
 
-  #delete {
-    background-color: rgb(230, 85, 85);
-  }
+	#delete {
+		background-color: rgb(230, 85, 85);
+	}
 	/* Media queries for responsive design */
 	@media (max-width: 1000px) {
 	}

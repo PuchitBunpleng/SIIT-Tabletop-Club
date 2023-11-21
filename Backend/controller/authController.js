@@ -1,12 +1,13 @@
+import bcrypt, { hash } from 'bcrypt'
 import memberModel from "../model/memberModel.js"
-
 
 let login = async (req, res) => {
     try {
         const result = await memberModel.getByID(req.body.std_id)
         const password = req.body.password
-        const inputpass = result[0].password
-        if (password === inputpass) {
+        const hashpassword = result[0].password
+        const compare = await bcrypt.compare(password, hashpassword)
+        if (compare) {
             const userID = result[0].std_id
             const core = result[0].core
             req.session.userID = userID.toString()

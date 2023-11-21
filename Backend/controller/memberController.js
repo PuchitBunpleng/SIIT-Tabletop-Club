@@ -1,4 +1,5 @@
 import memberModel from "../model/memberModel.js"
+import bcrypt from 'bcrypt'
 
 let getAll = async (req, res) => {
     try {
@@ -20,8 +21,10 @@ let get = async (req, res) => {
 }
 
 let post = async (req, res) => {
+    const password = req.body.password
     try {
-        await memberModel.add(req.body.std_id, req.body.password, req.body.name, req.body.tel, req.body.curriculum, req.body.core)
+        const hashpassword = await bcrypt.hash(password, 10)
+        await memberModel.add(req.body.std_id, hashpassword, req.body.name, req.body.tel, req.body.curriculum, req.body.core)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)
@@ -29,9 +32,10 @@ let post = async (req, res) => {
 }
 
 let put = async (req, res) => {
-    console.log(req.body)
+    const password = req.body.password
     try {
-        await memberModel.updateByID(req.body.std_id, req.body.password, req.body.name, req.body.tel, req.body.curriculum, req.body.core)
+        const hashpassword = await bcrypt.hash(password, 10)
+        await memberModel.updateByID(req.body.std_id, hashpassword, req.body.name, req.body.tel, req.body.curriculum, req.body.core)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)

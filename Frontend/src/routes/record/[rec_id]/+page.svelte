@@ -1,70 +1,76 @@
 <script>
-	import api from '$lib/api.js';
 	import { goto } from '$app/navigation';
-
+	import api from '$lib/api.js';
 	export let data;
 
 	let member = data?.member;
+	let record = data?.record;
 	let boardgame = data?.boardgame;
 	let b_length = 0;
 	if (boardgame) b_length = boardgame.length;
 
-	$: r_date = '';
-	$: r_time = '';
-	$: r_b_name = '';
-	$: r_cancel = 0;
-	let addReservation = () => {
-		api
-			.post('/reservation', {
-				r_date,
-				r_time,
-				r_b_name,
-				r_cancel
-			})
-			.then((res) => {
-				console.log(res);
-				alert('Add successfully');
-				goto('/reserve');
-			})
-			.catch((err) => {
-				console.log(err);
+	let record_id = record?.record_id;
+	let b_name = record?.b_name;
+	let date = (record?.date.split('T'))[0];
+	let winner = record?.winner;
+	let point = record?.point;
+
+	let updateRecord = async () => {
+		try {
+			await api.put(`/record/${member.std_id}`, {
+				record_id,
+				b_name,
+				date,
+				winner,
+				point
 			});
+			alert('Update successfully');
+			goto('/record');
+		} catch (err) {
+			console.log(err);
+		}
 	};
 </script>
 
 <body>
 	<div class="content">
-		<!-- Your content -->
 		<h1>{member?.name}</h1>
 		<h1 class="orange-text"><b>________________________</b></h1>
-		<h1 class="page-text">Add a reservation</h1>
+		<h1 class="page-text">Edit a record</h1>
 		<div class="page-form">
-			<img src="/images/edit.png" alt="Add a Reservation" class="page-image=" />
-			<label for="date">Date:</label>
-			<input bind:value={r_date} type="date" id="date" name="date" />
-
-			<label for="time">Time:</label>
-			<input bind:value={r_time} type="time" id="time" name="time" />
-
+			<div class="pic">
+				<img src="/images/edit.png" alt="Add a Record" class="page-image" />
+			</div>
 			<label for="boardgame">Board Game:</label>
 			{#if b_length}
-			<select bind:value={r_b_name}>
-				{#each data.boardgame as game}
-					<option value={game.b_name}>
-						{game.b_name}
-					</option>
-				{/each}
-			</select>
+				<select bind:value={b_name}>
+					{#if b_length}
+						{#each data.boardgame as game}
+							<option value={game.b_name}>
+								{game.b_name}
+							</option>
+						{/each}
+					{/if}
+				</select>
 			{/if}
+
+			<label for="date">Date:</label>
+			<input bind:value={date} type="date" id="date" name="date" />
+
+			<label for="winner">Winner:</label>
+			<input bind:value={winner} type="text" id="winner" name="winner" placeholder="Enter winner" />
+
+			<label for="point">Point:</label>
+			<input bind:value={point} type="number" id="point" name="point" placeholder="Enter points" />
 
 			<div class="page-buttons">
 				<button
 					type="button"
 					on:click={() => {
-						goto('/reserve');
+						goto('/record');
 					}}>Back</button
 				>
-				<button type="button" on:click={addReservation}>Add</button>
+				<button type="button" on:click={updateRecord}>Save</button>
 			</div>
 		</div>
 	</div>
@@ -84,7 +90,6 @@
 	/* Content section */
 	.content {
 		margin: 30px;
-		padding-bottom: 8rem;
 	}
 	.page-form {
 		margin: auto;
@@ -105,6 +110,11 @@
 		color: #f59e0b;
 	}
 
+	.page-image {
+		width: 200px;
+		height: auto;
+	}
+
 	label {
 		display: block;
 		margin-bottom: 5px;
@@ -121,7 +131,6 @@
 	.page-buttons {
 		display: flex;
 		justify-content: center;
-		margin-top: 1rem;
 	}
 
 	button {
@@ -139,6 +148,12 @@
 	button:hover {
 		background-color: #9a3197;
 		color: #fff;
+	}
+
+	.pic {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	/* Media queries for responsive design */

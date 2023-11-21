@@ -1,72 +1,60 @@
 <script>
 	export let data;
-	console.log(data);
-	let core = data?.core;
+	let boardgame = data?.data;
+	console.log(boardgame);
 </script>
 
-{#if core}
-	<body>
-		<div class="content">
-			<div class="search-bar">
+<body>
+	<div class="content">
+		<!-- <div class="search-bar">
 				<h1 class="search-text">Board Games</h1>
 				<input type="text" id="search-input" placeholder="Search...">
 				<button id="search-button">Search</button>
-			</div>
-
-			<table>
-				<thead>
-					<tr>
-						<th>Board Game</th>
-						<th>Description</th>
-						<th>Edit</th>
-						<th>Delete</th>
-					</tr>
-				</thead>
-				<tbody id="boardGameTableBody">
-					<!-- This part will be populated dynamically -->
-				</tbody>
-			</table>
-			<div class="page-buttons">
-				<button onclick="location.href='/boardgame/add'">Add</button>
-			</div>
+			</div> -->
+		<div class="center">
+			<h1>Boardgame List</h1>
 		</div>
-	</body>
-
-{:else}
-	<body>
-		<div class="content">
-			<h1 class="orange-text"><b>________________________</b></h1>
-			<div class="search-bar">
-				<h1 class="search-text">Board Games</h1>
-				<input type="text" id="search-input" placeholder="Search..." />
-				<button id="search-button">Search</button>
-			</div>
-
-			<table>
-				<!-- Your SQL data will be dynamically inserted here -->
+		<table>
+			<thead>
 				<tr>
 					<th>Board Game</th>
 					<th>Description</th>
+					<!-- <th>Edit</th>
+						<th>Delete</th> -->
 				</tr>
-				<!-- Example row -->
-				<tr>
-					<td>{data.b_name}</td>
-					<td>{data.description}</td>
-				</tr>
-			</table>
+			</thead>
+			<tbody>
+				{#if boardgame}
+					{#each boardgame as game, i}
+						<tr>
+							<td>{game.b_name}</td>
+							<td>{game.description}</td>
+						</tr>
+					{/each}
+				{/if}
+			</tbody>
+		</table>
+		<div class="page-buttons">
+			<!-- <button onclick="location.href='/boardgame/add'">Add</button> -->
 		</div>
-	</body>
-{/if}
+	</div>
+</body>
 
 <style>
 	body {
-        height: 100%;
+		height: 100%;
 		margin: 0;
 		padding: 0;
 		font-family: Georgia, 'Times New Roman', Times, serif;
 		background-color: #fffbf5;
 		display: flex;
 		flex-direction: column;
+	}
+
+	.center {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	/* Content section */
@@ -85,8 +73,8 @@
 	}
 
 	.orange-text {
-    margin-top: 0%;
-    color: #F59E0B;
+		margin-top: 0%;
+		color: #f59e0b;
 	}
 
 	#search-input {
@@ -106,6 +94,7 @@
 		width: 100%;
 		border-collapse: collapse;
 		margin-top: 20px;
+		margin-bottom: 7rem;
 	}
 
 	table,

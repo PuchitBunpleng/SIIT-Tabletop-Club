@@ -28,10 +28,23 @@ let getAll = async () => {
     }
 }
 
+let getByID = async (rec_id) => {
+    const connection = await pool.getConnection()
+    try {
+        const query = 'SELECT * FROM `record` WHERE record_id = ?'
+        const [rows] = await connection.query(query, [rec_id])
+        return rows
+    } catch (err) {
+        throw err
+    } finally {
+        connection.release()
+    }
+}
+
 let getByStdID = async (std_id) => {
     const connection = await pool.getConnection()
     try {
-        const query = 'SELECT * FROM `record` WHERE std_id = ?'
+        const query = 'SELECT * FROM `record` INNER JOIN `play` ON play.play_id = record.record_id WHERE std_id = ?'
         const [rows] = await connection.query(query, [std_id])
         return rows
     } catch (err) {
@@ -67,11 +80,12 @@ let getByDate = async (date) => {
     }
 }
 
-let add = async (std_id, b_name, date, winner, point) => {
+let add = async (rec_id, winner, point) => {
     const connection = await pool.getConnection()
+    console.log(rec_id, winner, point)
     try {
-        const query = "INSERT INTO record (std_id, b_name, date, winner, point) VALUES (?, ?, ?, ?, ?)"
-        const [rows] = await connection.query(query, [std_id, b_name, date, winner, point])
+        const query = "INSERT INTO `record` (record_id, winner, point) VALUES (?, ?, ?)"
+        const [rows] = await connection.query(query, [rec_id, winner, point])
         return rows
     } catch (err) {
         throw err
@@ -80,11 +94,11 @@ let add = async (std_id, b_name, date, winner, point) => {
     }
 }
 
-let updateByID = async (std_id, b_name, date, winner, point) => {
+let updateByID = async (rec_id, b_name, date, winner, point) => {
     const connection = await pool.getConnection()
     try {
-        const query = "UPDATE record SET winner = ?, point = ? WHERE std_id = ? AND b_name = ? AND date = ?"
-        const [rows] = await connection.query(query, [winner, point, std_id, b_name, date])
+        const query = "UPDATE record SET b_name = ?, date = ?, winner = ?, point = ? WHERE record_id = ?"
+        const [rows] = await connection.query(query, [b_name, date, winner, point, rec_id])
         return rows
     } catch (err) {
         throw err
@@ -106,4 +120,4 @@ let deleteByID = async (std_id, b_name, date) => {
     }
 }
 
-export default { getAll, getByDate, getByStdID, getByGameID, add, updateByID, deleteByID }
+export default { getAll, getByID, getByDate, getByStdID, getByGameID, add, updateByID, deleteByID }

@@ -118,21 +118,23 @@ app.delete('/reservation/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUse
 
 // Play
 app.get('/play', authMiddleware.notLoggedIn,playController.getAll)
-app.get('/play/:id', authMiddleware.notLoggedIn,playController.getByStd)
-app.get('/play/game/:id', authMiddleware.notLoggedIn,playController.getByGame)
-app.get('/play/date/:id', authMiddleware.notLoggedIn,playController.getByDate)
-app.post('/play/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,playController.post)
+app.get('/play/:id', authMiddleware.notLoggedIn, playController.getById)
+app.get('/play/member/:id', authMiddleware.notLoggedIn,playController.getByStd)
+// app.get('/play/game/:id', authMiddleware.notLoggedIn,playController.getByGame)
+// app.get('/play/date/:id', authMiddleware.notLoggedIn,playController.getByDate)
+app.post('/play', authMiddleware.notLoggedIn,playController.post)
 app.put('/play/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,playController.put)
 app.delete('/play/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,playController.del)
 
 // Record
 app.get('/record', authMiddleware.notLoggedIn,recordController.getAll)
-app.get('/record/:id', authMiddleware.notLoggedIn,recordController.getByStd)
+app.get('/record/:id', authMiddleware.notLoggedIn, recordController.getByID)
+app.get('/record/member/:id', authMiddleware.notLoggedIn,recordController.getByStd)
 app.get('/record/game/:id',authMiddleware.notLoggedIn, recordController.getByGame)
 app.get('/record/date/:id', authMiddleware.notLoggedIn,recordController.getByDate)
-app.post('/record/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,recordController.post)
-app.put('/record/:id',authMiddleware.notLoggedIn,sameMiddleware.sameUser, recordController.put)
-app.delete('/record/:id', authMiddleware.notLoggedIn,sameMiddleware.sameUser,recordController.del)
+app.post('/record', authMiddleware.notLoggedIn,recordController.post)
+app.put('/record/:id',authMiddleware.notLoggedIn, recordController.put)
+app.delete('/record/:id', authMiddleware.notLoggedIn, recordController.del)
 
 app.use('*', (req, res) => { res.send("ERROR 404: Endpoint not found") })
 

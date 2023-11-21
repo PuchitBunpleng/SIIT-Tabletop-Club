@@ -28,6 +28,18 @@ let getAll = async () => {
     }
 }
 
+let getByID = async (play_id) => {
+    const connection = await pool.getConnection()
+    try {
+        const query = 'SELECT * FROM `play` WHERE play_id = ?'
+        const [rows] = await connection.query(query, [play_id])
+    } catch (err) {
+        throw err
+    } finally {
+        connection.release()
+    }
+}
+
 let getByStdID = async (std_id) => {
     const connection = await pool.getConnection()
     try {
@@ -72,7 +84,9 @@ let add = async (std_id, b_name, date, start_time, end_time) => {
     try {
         const query = "INSERT INTO play (std_id, b_name, date, start_time, end_time) VALUES (?, ?, ?, ?, ?)"
         const [rows] = await connection.query(query, [std_id, b_name, date, start_time, end_time])
-        return rows
+        const query2 = "SELECT * from play ORDER BY play_id DESC LIMIT 1"
+        const [rows2] = await connection.query(query2, [])
+        return rows2[0].play_id
     } catch (err) {
         throw err
     } finally {
@@ -106,4 +120,4 @@ let deleteByID = async (std_id, b_name, date) => {
     }
 }
 
-export default { getAll, getByDate, getByStdID, getByGameID, add, updateByID, deleteByID }
+export default { getAll, getByID, getByDate, getByStdID, getByGameID, add, updateByID, deleteByID }

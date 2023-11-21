@@ -5,25 +5,25 @@
 	export let data;
 
 	let member = data?.member;
-  let reservation = data?.reservation
-  let r_id = data.r_id;
-  let r_date = ((reservation.r_date).split("T"))[0]
+	let reservation = data?.reservation;
+	let r_id = data.r_id;
+	let r_date = reservation.r_date.split('T')[0];
 	$: r_time = reservation?.r_time;
 	$: r_b_name = reservation?.r_b_name;
 	$: r_cancel = reservation?.r_cancel;
 	let updateReservation = () => {
 		api
 			.put(`/reservation/${data.r_id}`, {
-        r_id,
+				r_id,
 				r_date,
-        r_time,
-        r_b_name,
-        r_cancel
+				r_time,
+				r_b_name,
+				r_cancel
 			})
 			.then((res) => {
 				console.log(res);
-        alert('Update successfully')
-        goto('/reserve');
+				alert('Update successfully');
+				goto('/reserve');
 			})
 			.catch((err) => {
 				console.log(err);
