@@ -97,8 +97,8 @@ let add = async (rec_id, winner, point) => {
 let updateByID = async (rec_id, b_name, date, winner, point) => {
     const connection = await pool.getConnection()
     try {
-        const query = "UPDATE record SET b_name = ?, date = ?, winner = ?, point = ? WHERE record_id = ?"
-        const [rows] = await connection.query(query, [b_name, date, winner, point, rec_id])
+        const query = "UPDATE record SET winner = ?, point = ? WHERE record_id = ?"
+        const [rows] = await connection.query(query, [winner, point, rec_id])
         return rows
     } catch (err) {
         throw err
@@ -107,11 +107,11 @@ let updateByID = async (rec_id, b_name, date, winner, point) => {
     }
 }
 
-let deleteByID = async (std_id, b_name, date) => {
+let deleteByID = async (rec_id) => {
     const connection = await pool.getConnection()
     try {
-        const query = 'DELETE FROM `record` WHERE std_id = ? AND b_name = ? AND date = ?'
-        const [rows] = await connection.query(query, [std_id, b_name, date])
+        const query = 'DELETE FROM `record` WHERE record_id = ?'
+        const [rows] = await connection.query(query, [rec_id])
         return rows
     } catch (err) {
         throw err

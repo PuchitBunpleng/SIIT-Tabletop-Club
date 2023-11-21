@@ -1,6 +1,6 @@
 <script>
+	import api from '$lib/api.js'
 	export let data;
-	console.log(data)
 
 	let record = data?.record;
 	let row_num = 0;
@@ -23,8 +23,8 @@
 					<th>Date</th>
 					<th>Winner</th>
 					<th>Point</th>
-					<!-- <th>Edit</th>
-					<th>Delete</th> -->
+					<!-- <th>Edit</th> -->
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<!-- Table Body -->
@@ -42,8 +42,15 @@
 								><a href="/record/{row.record_id}"
 									><img src="/images/editicon.png" alt="edit" width="25rem" /></a
 								></td
-							>
-							<td>delete</td> -->
+							> -->
+							<td><button on:click={() => {
+								api.delete(`/record/${row.record_id}`).then((res) => {
+									alert("Delete Successfully")
+									location.reload(true)
+								}).catch((err) => {
+									console.log(err)
+								})
+							}}><img src="/images/delete.png" alt="delete" width="25rem"></button></td>
 						</tr>
 					{/each}
 				{/if}

@@ -19,8 +19,6 @@
 		try {
 			await api.put(`/record/${member.std_id}`, {
 				record_id,
-				b_name,
-				date,
 				winner,
 				point
 			});
@@ -43,14 +41,10 @@
 			</div>
 			<label for="boardgame">Board Game:</label>
 			{#if b_length}
-				<select bind:value={b_name}>
-					{#if b_length}
-						{#each data.boardgame as game}
-							<option value={game.b_name}>
-								{game.b_name}
-							</option>
-						{/each}
-					{/if}
+				<select disabled>
+					<option value={b_name}>
+						{b_name}
+					</option>
 				</select>
 			{/if}
 

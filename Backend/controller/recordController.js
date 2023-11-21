@@ -69,7 +69,7 @@ let put = async (req, res) => {
 
 let del = async (req, res) => {
     try {
-        await recordModel.deleteByID(req.params.id, req.body.b_name, req.body.date)
+        await recordModel.deleteByID(req.params.id)
         return res.sendStatus(200)
     } catch (err) {
         return res.status(500).json(err.message)

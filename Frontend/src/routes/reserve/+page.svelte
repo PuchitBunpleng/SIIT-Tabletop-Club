@@ -63,7 +63,6 @@
 													console.log(err);
 												});
 										}}
-										id="delete"
 										><img src="/images/delete.png" alt="delete" width="25rem" />
 									</button>
 								{:else if !row.r_cancel}
