@@ -1,29 +1,55 @@
+<script>
+    import api from '$lib/api.js';
+	export let data;
+
+    let event = data?.eventall;
+    let row_num = 0;
+    if(event){row_num = event.length}
+    let member = data?.member;
+</script>
+
 <body>
     
     <div class="content">
-        <p>{Mr.}{Firstname} {Surname}</p>
+        <h1>{member?.name}</h1>
         <h1 class="orange-text"><b>________________________</b></h1>
-        <div class="search-bar">
+ <!--     <div class="search-bar">
             <h1 class="search-text">Event Management</h1>
             <input type="text" id="search-input" placeholder="Search...">
             <button id="search-button">Search</button>
-        </div>
+        </div> -->  
 
         <table>
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Topic</th>
                     <th>Date</th>
                     <th>Time</th>
-                    <th>Type</th>
                     <th>Open for Public</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
             </thead>
             <tbody id="eventTableBody">
-                <!-- This part will be populated dynamically -->
+                {#if row_num}
+					{#each event as row (row.e_name)}
+						<tr>
+							<td>{row.e_name}</td>
+							<td>{row.date}</td>
+							<td>{row.time}</td>
+							<td>{row.open_for_public}</td>
+							<td><a href="/event/{row.e_name}"><img src="/images/editicon.png" alt="edit" width="25rem"></a></td>
+							<td><button on:click={() => {
+                                api.delete(`/event/${row.e_name}`).then(res => {
+                                  alert("Delete successfully")
+                                  location.reload(true);
+                                }).catch(err => {
+                                  console.log(err)
+                                })
+                              }} id="delete"><img src="/images/delete.png" alt="delete" width="25rem"></button></td>
+						</tr>
+					{/each}
+				{/if}
             </tbody>
         </table>
         <div class="page-buttons">
@@ -130,6 +156,10 @@ th, td {
     text-align: left;
     background-color: #FAF4EC;
 }
+
+table tbody td {
+		background-color: #ffffff;
+	}
 .page-buttons {
     display: flex;
     justify-content: center;

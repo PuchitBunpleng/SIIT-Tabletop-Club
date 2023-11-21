@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 20, 2023 at 12:47 PM
+-- Generation Time: Nov 21, 2023 at 02:34 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -20,9 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `siit_tabletop`
 --
-DROP DATABASE IF EXISTS `siit_tabletop`;
-CREATE DATABASE IF NOT EXISTS `siit_tabletop`;
-USE `siit_tabletop`;
 
 -- --------------------------------------------------------
 
@@ -260,18 +257,19 @@ CREATE TABLE `record` (
   `b_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` date NOT NULL,
   `winner` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `point` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `point` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `record_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `record`
 --
 
-INSERT INTO `record` (`std_id`, `b_name`, `date`, `winner`, `point`) VALUES
-(6422000001, 'Agricola', '2023-11-11', 'Maddox', ''),
-(6422000001, 'Root', '2023-11-16', 'Kiran', ''),
-(6422000006, 'Terraforming Mars: Ares Expedition', '2023-11-19', 'Harley', ''),
-(6422000007, 'Splendor', '2023-11-15', 'Denny', '');
+INSERT INTO `record` (`std_id`, `b_name`, `date`, `winner`, `point`, `record_id`) VALUES
+(6422000001, 'Agricola', '2023-11-11', 'Maddox', '', 1),
+(6422000001, 'Root', '2023-11-16', 'Kiran', '', 2),
+(6422000006, 'Terraforming Mars: Ares Expedition', '2023-11-19', 'Harley', '', 3),
+(6422000007, 'Splendor', '2023-11-15', 'Denny', '', 4);
 
 -- --------------------------------------------------------
 
@@ -368,7 +366,7 @@ ALTER TABLE `public_participate`
 -- Indexes for table `record`
 --
 ALTER TABLE `record`
-  ADD PRIMARY KEY (`std_id`,`b_name`,`date`),
+  ADD PRIMARY KEY (`record_id`),
   ADD KEY `std_id` (`std_id`,`b_name`,`date`);
 
 --
@@ -382,6 +380,12 @@ ALTER TABLE `reservation`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `record`
+--
+ALTER TABLE `record`
+  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `reservation`
