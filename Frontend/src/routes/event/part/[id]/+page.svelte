@@ -1,12 +1,34 @@
 <script>
     import api from '$lib/api.js';
+    import {goto} from '$app/navigation'
 	export let data;
 
-    let event = data?.eventall;
+    $: p_e_name = data.e_name
+    let participate = data?.participate;
     let row_num = 0;
-    if(event){row_num = event.length}
+    if(participate){row_num = participate.length}
+    let publicparticipate = data?.publicparticipate;
+    let p_row_num = 0;
+    if(publicparticipate){p_row_num = publicparticipate.length}
     let member = data?.member;
-    console.log(row_num)
+   let memberall = data?.memberall
+    $: p_std_id = memberall?.std_id;
+    console.log("check")
+
+    let addPart = () => {
+		api
+			.post(`/participate`, {
+        p_std_id,p_e_name
+			})
+			.then((res) => {
+				console.log(res);
+        alert('Add successfully')
+        location.reload(true);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 </script>
 
 <body>
@@ -23,25 +45,30 @@
         <table>
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Open for Public</th>
-                    <th>Participations</th>
-                    <th>Edit</th>
+                    <th>ID</th>
                     <th>Delete</th>
                 </tr>
             </thead>
-            <tbody id="eventTableBody">
+            <tbody id="partTableBody">
                 {#if row_num}
-					{#each event as row (row.e_name)}
+					{#each participate as row (row.p_std_id)}
 						<tr>
-							<td>{row.e_name}</td>
-							<td>{row.date}</td>
-							<td>{row.time}</td>
-							<td>{row.open_for_public}</td>
-                            <td><a href="/event/part/{row.e_name}">Participations</a></td>
-							<td><a href="/event/{row.e_name}"><img src="/images/editicon.png" alt="edit" width="25rem"></a></td>
+							<td>{row.p_std_id}</td>
+							<td><button on:click={() => {
+                                api.delete(`/event/${row.e_name}`).then(res => {
+                                  alert("Delete successfully")
+                                  location.reload(true);
+                                }).catch(err => {
+                                  console.log(err)
+                                })
+                              }} id="delete"><img src="/images/delete.png" alt="delete" width="25rem"></button></td>
+						</tr>
+					{/each}
+				{/if}
+                {#if p_row_num}
+					{#each publicparticipate as row (row.pp_person_id)}
+						<tr>
+							<td>{row.pp_person_id}</td>
 							<td><button on:click={() => {
                                 api.delete(`/event/${row.e_name}`).then(res => {
                                   alert("Delete successfully")
@@ -55,8 +82,21 @@
 				{/if}
             </tbody>
         </table>
+
+        <label for="part">Add participation:</label>
+			<select bind:value={p_std_id }>
+                {#if memberall}
+				{#each data.memberall as member}
+					<option value={member.std_id}>
+						{member.std_id }
+					</option>
+				{/each}
+                {/if}
+			</select>
+        <button type="submit" on:click={addPart}>Add</button>
+
         <div class="page-buttons">
-            <button onclick="location.href='/event/add'">Add</button>
+            <button type="button" on:click={()=>{goto('/event')}}>Back</button>
         </div>
     </div>
 
