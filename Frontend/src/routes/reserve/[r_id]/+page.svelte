@@ -38,7 +38,9 @@
 		<h1 class="orange-text"><b>________________________</b></h1>
 		<h1 class="page-text">Add a reservation</h1>
 		<div class="page-form">
+			<div class="pic">
 			<img src="/images/edit.png" alt="Add a Reservation" class="page-image=" />
+		</div>
 			<label for="date">Date:</label>
 			<input bind:value={r_date} type="date" id="date" name="date" />
 
@@ -136,6 +138,12 @@
 	button:hover {
 		background-color: #9a3197;
 		color: #fff;
+	}
+
+	.pic {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	/* Media queries for responsive design */

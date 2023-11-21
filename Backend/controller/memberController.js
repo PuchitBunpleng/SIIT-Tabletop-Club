@@ -23,6 +23,10 @@ let get = async (req, res) => {
 let post = async (req, res) => {
     const password = req.body.password
     try {
+        const result = await memberModel.getByID(req.body.std_id)
+        if (result[0]?.std_id) {
+            return res.status(500).json({ message: "Duplicate student ID" })
+        }
         const hashpassword = await bcrypt.hash(password, 10)
         await memberModel.add(req.body.std_id, hashpassword, req.body.name, req.body.tel, req.body.curriculum, req.body.core)
         return res.sendStatus(200)

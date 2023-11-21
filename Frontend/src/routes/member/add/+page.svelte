@@ -25,7 +25,8 @@
 			})
             
 			.catch((err) => {
-				console.log(err.message);
+				alert(err.response.data.message)
+				console.log(err);
 			});
 	};
 </script>
