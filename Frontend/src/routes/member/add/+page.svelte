@@ -56,7 +56,14 @@
 			<input bind:value={curriculum} type="text" id="curriculum" name="curriculum" placeholder="Enter curriculum" />
 
             <label for="core">Type of member:</label>
-			<input bind:value={core} type="text" id="core" name="core" placeholder="1 for core member, 0 for normal member" />
+			<select bind:value={core}>
+				<option value={0}>
+					{0}
+				</option>
+				<option value={1}>
+					{1}
+				</option>
+			</select>
               
 
 			<div class="page-buttons">

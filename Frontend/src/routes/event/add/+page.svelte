@@ -49,8 +49,14 @@
 			<input bind:value={time } type="time " id="time " name="Enter time " />
 
 			<label for="open_for_public">Open for public:</label>
-			<input bind:value={open_for_public} type="text" id="open_for_public" name="0 for private, 1 for public" />
-              
+			<select bind:value={open_for_public}>
+			<option value={0}>
+				{0}
+			</option>
+			<option value={1}>
+				{1}
+			</option>
+			</select>
 
 			<div class="page-buttons">
 				<button type="button" on:click={()=>{goto('/event')}}>Back</button>
