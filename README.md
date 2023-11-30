@@ -1,5 +1,5 @@
 # How to open the project
-Try to open this README.md file as Preview for the best experience
+Try to open this README.md file in Preview mode for the best experience
 
 ## Step 1: Download Node.js
 Download and install Node.js from https://nodejs.org/en/
