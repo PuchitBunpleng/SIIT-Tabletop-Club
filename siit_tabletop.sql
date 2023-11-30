@@ -20,6 +20,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `siit_tabletop`
 --
+DROP Database IF EXISTS `siit_tabletop`;
+CREATE Database IF NOT EXISTS `siit_tabletop`;
+USE `siit_tabletop`;
+
+--
+-- Create users
+--
+
+DROP USER IF EXISTS 'admin'; -- Change username here
+CREATE USER IF NOT EXISTS 'admin' IDENTIFIED BY 'admin'; -- Change username and password here
+GRANT INSERT, SELECT, UPDATE, DELETE ON `siit_tabletop`.* TO 'admin' IDENTIFIED BY 'admin'; -- Change username and password here
+FLUSH PRIVILEGES;
 
 -- --------------------------------------------------------
 
