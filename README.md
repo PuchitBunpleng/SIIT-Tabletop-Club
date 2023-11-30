@@ -1,3 +1,8 @@
+# Group Member
+- Phattanant Wongprechasawad ID:6422780070
+- Puchit Bunpleng ID:6422780104
+- Patharapol Laolakkana ID:6422781573
+
 # How to open the project
 Try to open this README.md file in Preview mode for the best experience
 
