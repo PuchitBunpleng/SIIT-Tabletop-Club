@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 21, 2023 at 07:02 AM
+-- Generation Time: Nov 30, 2023 at 09:21 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -20,6 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `siit_tabletop`
 --
+
 DROP Database IF EXISTS `siit_tabletop`;
 CREATE Database IF NOT EXISTS `siit_tabletop`;
 USE `siit_tabletop`;
@@ -146,7 +147,7 @@ INSERT INTO `member` (`std_id`, `name`, `tel`, `password`, `curriculum`, `core`)
 (6422000000, 'Maddox Williams', '0922901230', '$2b$10$tlz9ZA66wFEQaj.4CAE6sOu7HpFuLGDrn4Unrj/3I9k1kN7vkUDVC', 'cpe', 1),
 (6422000001, 'Caden Houghton', '0684421123', '$2b$10$BpDiwKJmPuOub7GuhcrBBOjgdXIWIWlbi2eua5bdnseSN/fSKKOLW', 'ee', 1),
 (6422000002, 'Kiran Murphy', '0983453334', '$2b$10$m.Q3fSvi1TnNTUusJi2G2OXUgydMt0eDI24w6/0/EwHfenP4/iTeu', 'de', 1),
-(6422000003, 'Lynn Wilson', '0884836109', '$2b$10$.gwh234A99j2sTPaTbZDLuJFTOrvihgyhrppTkNcYS2N5kWcMh42a', 'ie', 0),
+(6422000003, 'Lynn Wilson', '0884836109', '$2b$10$bF1AXVqi6r1DolZBm74Xz.nYGyLxAufuPeUtCVjeY9y9Ue8BYSLYu', 'ie', 0),
 (6422000004, 'Cameron Davis', '0939555545', '$2b$10$nK0isme6voWaa2js.lQfnuQ41boPirvrHZeUMSOri/UCfx0OumqwC', 'cpe', 0),
 (6422000005, 'Denny Hayes', '0728713324', '$2b$10$15xTRQKDjif9xUJTEtuxsOD4SukS3.QtBUdXkESVndbyStVhPiKA.', 'de', 0),
 (6422000006, 'Harley Wright', '0667867784', '$2b$10$7E7EeR0VfZi48ECG.G/eT.c70155esH36rN.TQK2kFRCElrpFBVaS', 'cpe', 0),
@@ -237,7 +238,9 @@ INSERT INTO `play` (`play_id`, `std_id`, `b_name`, `date`, `start_time`, `end_ti
 (7, 6422000007, 'BattleCON Devastation of Indines', '2023-11-13', '16:30:23', '17:05:44'),
 (8, 6422000007, 'Splendor', '2023-11-15', '18:43:44', '18:59:59'),
 (9, 6422000008, 'Terraforming Mars: Ares Expedition', '2023-11-20', '18:00:03', '20:12:33'),
-(10, 6422000009, 'Splendor', '2023-11-15', '18:02:33', '18:35:23');
+(10, 6422000009, 'Splendor', '2023-11-15', '18:02:33', '18:35:23'),
+(11, 6422000000, '7 Wonders: Architects', '2023-12-09', '00:00:00', '00:00:00'),
+(12, 6422000000, 'BattleCON Devastation of Indines', '2023-12-09', '00:00:00', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -393,13 +396,13 @@ ALTER TABLE `reservation`
 -- AUTO_INCREMENT for table `play`
 --
 ALTER TABLE `play`
-  MODIFY `play_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `play_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `record`
 --
 ALTER TABLE `record`
-  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `reservation`

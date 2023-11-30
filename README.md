@@ -61,3 +61,19 @@ npm run dev
 
 ## Step 8: Go to the website
 Go to the SIIT Tabletop Club website which show in the frontend terminal (default is http://localhost:5173)
+
+## Step 9: Login to the website
+### Admin
+```
+UserID: 6422000000
+Password: MaddoxInwza
+```
+
+### Member
+```
+UserID: 6422000003
+Password: battleCONisthebest
+```
+
+## Step 10: Use the website
+You can play around the website now
